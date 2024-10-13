@@ -5,11 +5,15 @@ using System.Threading;
 using Sokabon.CommandSystem;
 using Sokabon.StateMachine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Sokabon
 {
 	public class Player : StateChangeListener
 	{
+		public int _gelCount = 0;
+		[SerializeField] private GameObject gelPrefab;
+
 		private Block _block;
 		[SerializeField] private TurnManager _turnManager;
 		private bool _canMove = true;
@@ -96,7 +100,16 @@ namespace Sokabon
 			else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
 			{
 				_movementQueue.Enqueue(Vector2Int.right);
-			}else if (Input.GetKeyDown(KeyCode.Z))
+			}
+			else if (Input.GetKeyDown(KeyCode.E))
+			{
+				if (_gelCount > 0)
+				{
+					_gelCount--;
+					Instantiate(gelPrefab, transform.position, Quaternion.identity);
+				}
+			}
+			else if (Input.GetKeyDown(KeyCode.Z))
 			{
 				_turnManager.Undo();
 			}

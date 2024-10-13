@@ -17,12 +17,13 @@ namespace Sokabon
         
         // TODO: This is a bit of a hack. We should probably have a separate class for gravity. 
         public static Vector2Int GravityDirection = Vector2Int.zero;
+        public bool isAffectedByGravity = true;
         
         [SerializeField] private LayerSettings layerSettings;
 
         private void Update()
         {
-            if (!IsAnimating && IsDirectionFree(GravityDirection))
+            if (isAffectedByGravity && !IsAnimating && IsDirectionFree(GravityDirection))
             {
                 Move move = new(this, GravityDirection);
                 turnManager.ExecuteCommand(move);

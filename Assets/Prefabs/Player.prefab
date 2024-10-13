@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 8391423207400783679}
   - component: {fileID: 6897488598471979012}
   - component: {fileID: 6967535708933648910}
+  - component: {fileID: 1404801623578514810}
+  - component: {fileID: 1126049433005193829}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -103,6 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnManager: {fileID: 0}
   movementSettings: {fileID: 11400000, guid: c184963bbd747444f87547c118be3bfa, type: 2}
+  isAffectedByGravity: 1
   layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}
 --- !u!61 &8391423207400783676
 BoxCollider2D:
@@ -162,6 +165,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: {fileID: 11400000, guid: 955fb8d07600b25488dd6f753d063042, type: 2}
+  _gelCount: 0
+  gelPrefab: {fileID: 0}
   _turnManager: {fileID: 0}
 --- !u!114 &6897488598471979012
 MonoBehaviour:
@@ -190,3 +195,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}
   <GoalType>k__BackingField: {fileID: 11400000, guid: 2bee78ce9d99f904aa89395a58a63a95, type: 2}
+--- !u!114 &1404801623578514810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8391423207400783673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67b375f16779494693bc3b92e3626731, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}
+--- !u!114 &1126049433005193829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8391423207400783673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a587c3b4364ea781b2976b912f028a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}
