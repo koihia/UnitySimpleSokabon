@@ -130,6 +130,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2070775720}
     m_Modifications:
+    - target: {fileID: 7181278517378620010, guid: 1330d157160abf046a0d2e82544e1660, type: 3}
+      propertyPath: layerSettings
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181278517378620010, guid: 1330d157160abf046a0d2e82544e1660, type: 3}
+      propertyPath: <GoalType>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8391423207400783673, guid: 1330d157160abf046a0d2e82544e1660, type: 3}
       propertyPath: m_Name
       value: Player
@@ -487,7 +495,7 @@ GameObject:
   - component: {fileID: 609352901}
   - component: {fileID: 609352900}
   m_Layer: 0
-  m_Name: GoalsTilemap
+  m_Name: TriggersTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -508,6 +516,7 @@ Transform:
   m_Children:
   - {fileID: 1977009490}
   - {fileID: 1027317644}
+  - {fileID: 1547812408}
   - {fileID: 592336371}
   m_Father: {fileID: 1171175714}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1467,6 +1476,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8391423207400783675, guid: 1330d157160abf046a0d2e82544e1660, type: 3}
   m_PrefabInstance: {fileID: 171998122}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1547812408 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4605338658523518050, guid: 8ee9c4d07797e954f8b9ab0943db0219, type: 3}
+  m_PrefabInstance: {fileID: 8896417424976497423}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1597836816
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1778,6 +1792,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33ab5d30b0f9d0d4fad664f75c5bfdb7, type: 3}
+--- !u!1001 &8896417424976497423
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 609352899}
+    m_Modifications:
+    - target: {fileID: 4605338658523518048, guid: 8ee9c4d07797e954f8b9ab0943db0219, type: 3}
+      propertyPath: m_Name
+      value: Goal Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605338658523518050, guid: 8ee9c4d07797e954f8b9ab0943db0219, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605338658523518050, guid: 8ee9c4d07797e954f8b9ab0943db0219, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605338658523518050, guid: 8ee9c4d07797e954f8b9ab0943db0219, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605338658523518050, guid: 8ee9c4d07797e954f8b9ab0943db0219, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605338658523518050, guid: 8ee9c4d07797e954f8b9ab0943db0219, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605338658523518050, guid: 8ee9c4d07797e954f8b9ab0943db0219, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605338658523518050, guid: 8ee9c4d07797e954f8b9ab0943db0219, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605338658523518050, guid: 8ee9c4d07797e954f8b9ab0943db0219, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605338658523518050, guid: 8ee9c4d07797e954f8b9ab0943db0219, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605338658523518050, guid: 8ee9c4d07797e954f8b9ab0943db0219, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8ee9c4d07797e954f8b9ab0943db0219, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -4,6 +4,8 @@ namespace Sokabon.Trigger
 {
     public class TriggerTargetGoal : TriggerTarget
     {
+        [field: SerializeField] public TriggerGoalType GoalType { get; private set; }
+
         private SpriteRenderer _spriteRenderer;
         private Color _defaultColor;
         private Color _atGoalColor;
@@ -33,7 +35,7 @@ namespace Sokabon.Trigger
 
         private bool isOnGoal(Trigger trigger)
         {
-            return trigger is TriggerGoal;
+            return (trigger as TriggerGoal)?.GoalType == GoalType;
         }
     }
 }

@@ -134,3 +134,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}
+  <GoalType>k__BackingField: {fileID: 11400000, guid: 46f326604a8298c429b86b241b643378, type: 2}
