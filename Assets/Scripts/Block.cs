@@ -3,17 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using Sokabon.CommandSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Sokabon
 {
     public class Block : MonoBehaviour
     {
         public Action AtNewPositionEvent;
+        [SerializeField] private TurnManager turnManager;
         [SerializeField] private MovementSettings movementSettings;
         public bool IsAnimating => _animating; 
         private bool _animating;
         
+        // TODO: This is a bit of a hack. We should probably have a separate class for gravity. 
+        public static Vector2Int GravityDirection = Vector2Int.zero;
+        
         [SerializeField] private LayerSettings layerSettings;
+
+        private void Update()
+        {
+            if (!IsAnimating && IsDirectionFree(GravityDirection))
+            {
+                Move move = new(this, GravityDirection);
+                turnManager.ExecuteCommand(move);
+            }
+        }
+
         public Vector3 GetPosInDir(Vector2Int direction)
         {
             return transform.position + new Vector3(direction.x, direction.y, 0);

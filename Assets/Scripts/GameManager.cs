@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Sokabon;
 using Sokabon.StateMachine;
+using Sokabon.Trigger;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -16,12 +17,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private State pauseState;
     //We need to know when a turn is done
     //We need to know all of the victory conditions
-    private GoalTarget[] _goalTargets;
+    private TriggerTargetGoal[] _goalTargets;
     private GameTimer _timer;
     
     private void Awake()
     {
-        _goalTargets = GameObject.FindObjectsOfType<GoalTarget>();
+        _goalTargets = FindObjectsOfType<TriggerTargetGoal>();
         _timer = new GameTimer();
     }
 

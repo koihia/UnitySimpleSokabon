@@ -1,5 +1,6 @@
 ﻿using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Sokabon
 {
@@ -10,6 +11,6 @@ namespace Sokabon
 		
 		public LayerMask solidLayerMask;
 		public LayerMask blockLayerMask;
-		public LayerMask goalLayerMask;
+		public LayerMask triggerLayerMask;
 	}
 }

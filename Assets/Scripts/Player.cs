@@ -35,6 +35,11 @@ namespace Sokabon
 		//Returns true or false if we were able to move. That way we can hook up like a "blah" feedback or noise if the player tries to move but cant.
 		public bool TryMove(Vector2Int direction)
 		{
+			if (Block.GravityDirection + direction == Vector2Int.zero)
+			{
+				return false;
+			}
+
 			if (_block.IsDirectionFree(direction))
 			{
 				CommandSystem.Move move = new Move(_block,direction);
