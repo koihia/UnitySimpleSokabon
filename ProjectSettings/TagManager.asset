@@ -42,3 +42,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Trigger
+    uniqueID: 676337721
+    locked: 0
+  - name: Player
+    uniqueID: 941910493
+    locked: 0
+  - name: Block
+    uniqueID: 3865462797
+    locked: 0
