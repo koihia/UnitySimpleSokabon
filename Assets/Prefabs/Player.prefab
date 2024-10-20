@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: {fileID: 11400000, guid: 955fb8d07600b25488dd6f753d063042, type: 2}
   _gelCount: 0
-  gelPrefab: {fileID: 0}
+  gelPrefab: {fileID: 1066786801705353148, guid: 73278b48b8b9a784cb8e02e9967ed915, type: 3}
   _turnManager: {fileID: 0}
 --- !u!114 &6897488598471979012
 MonoBehaviour:
