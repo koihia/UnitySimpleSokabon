@@ -103,7 +103,7 @@ namespace Sokabon
 			}
 			else if (Input.GetKeyDown(KeyCode.E))
 			{
-				if (_gelCount > 0)
+				if (!_block.IsAnimating && _gelCount > 0)
 				{
 					_gelCount--;
 					Instantiate(gelPrefab, transform.position, Quaternion.identity);
