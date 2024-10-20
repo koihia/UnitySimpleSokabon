@@ -32,8 +32,10 @@ namespace Sokabon
             GravityDirection = Vector2Int.zero;
         }
         
-        private void Update()
+        private void LateUpdate()
         {
+            // Checking gravity in LateUpdate avoids the one frame gap that cause _isAnimating to be false when it can
+            // still continue falling. This is because we animate the block and set _isAnimating in coroutine.
             if (isAffectedByGravity && !IsAnimating && IsDirectionFree(GravityDirection))
             {
                 Move move = new(this, GravityDirection);
