@@ -19,7 +19,7 @@ public class TurnManager : MonoBehaviour
 
 	private void Start()
 	{
-		TurnCountChanges.Invoke(_commands.Count);//Count is 0 on level load.
+		TurnCountChanges?.Invoke(_commands.Count);//Count is 0 on level load.
 	}
 
 	public void ExecuteCommand(Command command)
