@@ -1,3 +1,4 @@
+using Sokabon;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -29,6 +30,12 @@ public class LevelManager : MonoBehaviour
         //go to build index
         SceneManager.LoadScene(next);
     }
+    
+    public void GoToLevel(int level)
+    {
+        SceneManager.LoadScene("Level" + level);
+    }
+    
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))

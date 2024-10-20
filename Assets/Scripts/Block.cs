@@ -21,6 +21,17 @@ namespace Sokabon
         
         [SerializeField] private LayerSettings layerSettings;
 
+        private void Awake()
+        {
+            // TODO: Singleton turnManager? Or put gravity in a separate class?
+            if (turnManager == null)
+            {
+                Debug.LogWarning("Block object needs TurnManager set, or TurnManager not found in scene. Searching for one.",gameObject);
+                turnManager = FindObjectOfType<TurnManager>();
+            }
+            GravityDirection = Vector2Int.zero;
+        }
+        
         private void Update()
         {
             if (isAffectedByGravity && !IsAnimating && IsDirectionFree(GravityDirection))

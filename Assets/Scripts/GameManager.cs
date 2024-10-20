@@ -18,11 +18,13 @@ public class GameManager : MonoBehaviour
     //We need to know when a turn is done
     //We need to know all of the victory conditions
     private TriggerTargetGoal[] _goalTargets;
+    private int _goalCount;
     private GameTimer _timer;
     
     private void Awake()
     {
         _goalTargets = FindObjectsOfType<TriggerTargetGoal>();
+        _goalCount = FindObjectsOfType<TriggerGoal>().Length;
         _timer = new GameTimer();
     }
 
@@ -71,13 +73,13 @@ public class GameManager : MonoBehaviour
 
     private void CheckForVictory()
     {
-        bool victory = _goalTargets.All(gt => gt.AtGoal);
+        // Check if there are _goalCount goal targets on goals
+        bool victory = _goalTargets.Count(target => target.AtGoal) >= _goalCount;
         if (victory)
         {
             Debug.Log("We win!");
             _timer.Stop();
             machine.SetCurrentState(victoryState);
-            HighScoreManager.Instance.OnVictory(LevelManager.CurrentLevelIndex,_timer);
         }
     }
 
