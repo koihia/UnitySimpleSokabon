@@ -13,16 +13,30 @@ namespace Sokabon
 	{
 		public int _gelCount = 0;
 		[SerializeField] private GameObject gelPrefab;
+		[SerializeField] private LayerSettings layerSettings;
 
 		private Block _block;
 		[SerializeField] private TurnManager _turnManager;
 		private bool _canMove = true;
+		public bool IsDead { get; private set; }
+		
 		private Queue<Vector2Int> _movementQueue;
 		private void Awake()
 		{
 			_movementQueue = new Queue<Vector2Int>();
 			_canMove = true;
 			_block = GetComponent<Block>();
+
+			var blocks = FindObjectsOfType<Block>();
+			foreach (var block in blocks)
+			{
+				if (block == _block)
+				{
+					continue;
+				}
+				
+				block.AtNewPositionEvent += CheckForDeath;
+			}
 			
 			//We have a dependency on TurnManager.
 			//TurnManager has not implemented the singleton pattern in this example. This is a clear weak link in this project as an example project.
@@ -65,6 +79,15 @@ namespace Sokabon
 			}
 
 			return false;
+		}
+
+		private void CheckForDeath()
+		{
+			Collider2D col = Physics2D.OverlapCircle(transform.position, 0.3f, layerSettings.blockLayerMask);
+			if (col?.GetComponent<Block>() != null)
+			{
+				IsDead = true;
+			}
 		}
 
 		protected override void OnEnterEvent()

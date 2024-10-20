@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   machine: {fileID: 11400000, guid: 45b14241e7228ba49aacc9f7de18ca09, type: 2}
+  loseState: {fileID: 11400000, guid: 7d16a235b899eda4c887b7bed8eb40ad, type: 2}
   victoryState: {fileID: 11400000, guid: bf0bdab58f2479548bb9954888b8265d, type: 2}
   gameplayState: {fileID: 11400000, guid: 955fb8d07600b25488dd6f753d063042, type: 2}
   pauseState: {fileID: 11400000, guid: 8152fc5c5d9c81f4ba144df470567e44, type: 2}

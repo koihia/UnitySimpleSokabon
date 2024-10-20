@@ -12,5 +12,6 @@ namespace Sokabon
 		public LayerMask solidLayerMask;
 		public LayerMask blockLayerMask;
 		public LayerMask triggerLayerMask;
+		public LayerMask playerLayerMask;
 	}
 }

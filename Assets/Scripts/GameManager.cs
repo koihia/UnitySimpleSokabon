@@ -12,17 +12,20 @@ public class GameManager : MonoBehaviour
     [Header("State Machine Config")] [SerializeField]
     private StateMachine machine;
 
+    [SerializeField] private State loseState;
     [SerializeField] private State victoryState;
     [SerializeField] private State gameplayState;
     [SerializeField] private State pauseState;
     //We need to know when a turn is done
     //We need to know all of the victory conditions
+    private Player _player;
     private TriggerTargetGoal[] _goalTargets;
     private int _goalCount;
     private GameTimer _timer;
     
     private void Awake()
     {
+        _player = FindObjectOfType<Player>();
         _goalTargets = FindObjectsOfType<TriggerTargetGoal>();
         _goalCount = FindObjectsOfType<TriggerGoal>().Length;
         _timer = new GameTimer();
@@ -67,8 +70,19 @@ public class GameManager : MonoBehaviour
         {
             _timer.StartTimer();
         }
-        
+
+        CheckForLose();
         CheckForVictory();
+    }
+
+    private void CheckForLose()
+    {
+        if (_player.IsDead)
+        {
+            Debug.Log("We lose!");
+            _timer.Stop();
+            machine.SetCurrentState(loseState);
+        }
     }
 
     private void CheckForVictory()

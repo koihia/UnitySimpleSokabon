@@ -36,7 +36,8 @@ namespace Sokabon
         {
             // Checking gravity in LateUpdate avoids the one frame gap that cause _isAnimating to be false when it can
             // still continue falling. This is because we animate the block and set _isAnimating in coroutine.
-            if (isAffectedByGravity && !IsAnimating && IsDirectionFree(GravityDirection))
+            if (isAffectedByGravity && !IsAnimating && GravityDirection != Vector2Int.zero &&
+                IsDirectionFree(GravityDirection))
             {
                 Move move = new(this, GravityDirection);
                 turnManager.ExecuteCommand(move);
