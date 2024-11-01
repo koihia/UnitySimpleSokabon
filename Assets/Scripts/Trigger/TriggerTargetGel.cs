@@ -1,4 +1,6 @@
-﻿namespace Sokabon.Trigger
+﻿using Sokabon.CommandSystem;
+
+namespace Sokabon.Trigger
 {
     public class TriggerTargetGel : TriggerTarget
     {
@@ -16,8 +18,8 @@
             {
                 return;
             }
-            
-            _block.isAffectedByGravity = false;
+
+            _turnManager.ExecuteCommand(new ChangeIsAffectedByGravity(_block, false));
         }
         
         protected override void OnSokabonTriggerExit(Trigger trigger)
@@ -27,7 +29,7 @@
                 return;
             }
 
-            _block.isAffectedByGravity = true;
+            _turnManager.ExecuteCommand(new ChangeIsAffectedByGravity(_block, true));
         }
     }
 }

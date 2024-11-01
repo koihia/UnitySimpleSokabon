@@ -1,4 +1,6 @@
-﻿namespace Sokabon.Trigger
+﻿using Sokabon.CommandSystem;
+
+namespace Sokabon.Trigger
 {
     public class TriggerTargetLootGel : TriggerTarget
     {
@@ -18,8 +20,7 @@
                 return;
             }
 
-            Destroy(triggerLootGel.gameObject);
-            _player._gelCount++;
+            _turnManager.ExecuteCommand(new PickUpGelLoot(_player, triggerLootGel));
         }
 
         protected override void OnSokabonTriggerExit(Trigger trigger)

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Sokabon.CommandSystem;
+using UnityEngine;
 
 namespace Sokabon.Trigger
 {
@@ -26,7 +27,7 @@ namespace Sokabon.Trigger
                 return;
             }
             
-            _blockManager.gravityDirection = triggerGravity.GravityDirection;
+            _turnManager.ExecuteCommand(new ChangeGravity(_blockManager, triggerGravity.GravityDirection));
         }
 
         protected override void OnSokabonTriggerExit(Trigger trigger)

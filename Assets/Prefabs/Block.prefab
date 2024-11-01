@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4578409831997720015}
   - component: {fileID: 553520236437764128}
   - component: {fileID: 2109486553493542693}
+  - component: {fileID: 3287785884369118103}
   m_Layer: 6
   m_Name: Block
   m_TagString: Block
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -429504499
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.509434, g: 0.22347811, b: 0.22347811, a: 1}
@@ -145,7 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf5290abc0e8d440a22cddb4acc49ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnManager: {fileID: 0}
   movementSettings: {fileID: 11400000, guid: c184963bbd747444f87547c118be3bfa, type: 2}
   isAffectedByGravity: 1
   layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}
@@ -161,7 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 539ebc35f67a47d68f1ec49d3240d857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}
   <GoalType>k__BackingField: {fileID: 11400000, guid: 46f326604a8298c429b86b241b643378, type: 2}
 --- !u!114 &2109486553493542693
 MonoBehaviour:
@@ -173,6 +172,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1a587c3b4364ea781b2976b912f028a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3287785884369118103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4578409831997720051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30bf5b1e4e0249a6bb9e3230a8d2aef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}

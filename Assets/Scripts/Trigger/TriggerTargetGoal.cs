@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Sokabon.CommandSystem;
+using UnityEngine;
 
 namespace Sokabon.Trigger
 {
@@ -7,16 +8,12 @@ namespace Sokabon.Trigger
         [field: SerializeField] public TriggerGoalType GoalType { get; private set; }
 
         private SpriteRenderer _spriteRenderer;
-        private Color _defaultColor;
-        private Color _atGoalColor;
-        public bool AtGoal { get; private set; }
+        public bool AtGoal { get; set; }
 
         protected override void Awake()
         {
             base.Awake();
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            _defaultColor = _spriteRenderer.color;
-            _atGoalColor = Color.Lerp(_defaultColor, Color.black, 0.5f);
         }
 
         protected override void OnSokabonTriggerEnter(Trigger trigger)
@@ -26,8 +23,8 @@ namespace Sokabon.Trigger
             {
                 return;
             }
-            AtGoal = true;
-            _spriteRenderer.color = _atGoalColor;
+            
+            _turnManager.ExecuteCommand(new ChangeAtGoal(true, this, _spriteRenderer));
         }
 
         protected override void OnSokabonTriggerExit(Trigger trigger)
@@ -37,8 +34,8 @@ namespace Sokabon.Trigger
             {
                 return;
             }
-            AtGoal = false;
-            _spriteRenderer.color = _defaultColor;
+            
+            _turnManager.ExecuteCommand(new ChangeAtGoal(false, this, _spriteRenderer));
         }
     }
 }
