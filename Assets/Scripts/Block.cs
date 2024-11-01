@@ -10,39 +10,13 @@ namespace Sokabon
     public class Block : MonoBehaviour
     {
         public Action AtNewPositionEvent;
-        [SerializeField] private TurnManager turnManager;
         [SerializeField] private MovementSettings movementSettings;
         public bool IsAnimating => _animating; 
         private bool _animating;
         
-        // TODO: This is a bit of a hack. We should probably have a separate class for gravity. 
-        public static Vector2Int GravityDirection = Vector2Int.zero;
         public bool isAffectedByGravity = true;
         
         [SerializeField] private LayerSettings layerSettings;
-
-        private void Awake()
-        {
-            // TODO: Singleton turnManager? Or put gravity in a separate class?
-            if (turnManager == null)
-            {
-                Debug.LogWarning("Block object needs TurnManager set, or TurnManager not found in scene. Searching for one.",gameObject);
-                turnManager = FindObjectOfType<TurnManager>();
-            }
-            GravityDirection = Vector2Int.zero;
-        }
-        
-        private void LateUpdate()
-        {
-            // Checking gravity in LateUpdate avoids the one frame gap that cause _isAnimating to be false when it can
-            // still continue falling. This is because we animate the block and set _isAnimating in coroutine.
-            if (isAffectedByGravity && !IsAnimating && GravityDirection != Vector2Int.zero &&
-                IsDirectionFree(GravityDirection))
-            {
-                Move move = new(this, GravityDirection);
-                turnManager.ExecuteCommand(move);
-            }
-        }
 
         public Vector3 GetPosInDir(Vector2Int direction)
         {

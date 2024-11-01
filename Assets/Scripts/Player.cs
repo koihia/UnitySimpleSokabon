@@ -17,6 +17,7 @@ namespace Sokabon
 
 		private Block _block;
 		[SerializeField] private TurnManager _turnManager;
+		[SerializeField] private BlockManager blockManager;
 		private bool _canMove = true;
 		public bool IsDead { get; private set; }
 		
@@ -48,39 +49,16 @@ namespace Sokabon
 				Debug.LogWarning("Player object needs TurnManager set, or TurnManager not found in scene. Searching for one.",gameObject);
 				_turnManager = GameObject.FindObjectOfType<TurnManager>();
 			}
+
+			if (blockManager == null)
+			{
+				Debug.LogWarning(
+					"Player object needs BlockManager set, or BlockManager not found in scene. Searching for one.",
+					gameObject);
+				blockManager = FindObjectOfType<BlockManager>();
+			}
 		}
-
-		//Returns true or false if we were able to move. That way we can hook up like a "blah" feedback or noise if the player tries to move but cant.
-		public bool TryMove(Vector2Int direction)
-		{
-			if (Block.GravityDirection + direction == Vector2Int.zero)
-			{
-				return false;
-			}
-
-			if (_block.IsDirectionFree(direction))
-			{
-				CommandSystem.Move move = new Move(_block,direction);
-				_turnManager.ExecuteCommand(move);
-				return true;
-			}
-			else
-			{
-				Block b = _block.BlockInDirection(direction);
-				if (b != null)
-				{
-					if (b.IsDirectionFree(direction))
-					{
-						PushBlock pushBlockCommand = new PushBlock(_block, b, direction);
-						_turnManager.ExecuteCommand(pushBlockCommand);
-						return true;
-					}
-				}
-			}
-
-			return false;
-		}
-
+		
 		private void CheckForDeath()
 		{
 			Collider2D col = Physics2D.OverlapCircle(transform.position, 0.3f, layerSettings.blockLayerMask);
@@ -124,6 +102,10 @@ namespace Sokabon
 			{
 				_movementQueue.Enqueue(Vector2Int.right);
 			}
+			else if (Input.GetKeyDown(KeyCode.Space))
+			{
+				_movementQueue.Enqueue(Vector2Int.zero);
+			}
 			else if (Input.GetKeyDown(KeyCode.E))
 			{
 				if (!_block.IsAnimating && _gelCount > 0)
@@ -140,7 +122,7 @@ namespace Sokabon
 			if (!_block.IsAnimating && _movementQueue.Count > 0)
 			{
 				Vector2Int dir = _movementQueue.Dequeue();
-				if (!TryMove(dir))
+				if (!blockManager.PlayerTryMove(_block, dir))
 				{
 					_movementQueue.Clear();
 				}
