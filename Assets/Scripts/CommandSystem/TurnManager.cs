@@ -11,7 +11,8 @@ public class TurnManager : MonoBehaviour
 	public static Action AfterUndoEvent;
 	
 	public Action<int> TurnCountChanges;//For the game as currently scoped, it would be fine for this to be static. That's usually not the case, so lets make sure the example is more widely applicable.
-	public int TurnCount => _commands.Count;
+	public int TurnCount = 0;
+	
 	private void Awake()
 	{
 		_commands = new Stack<Command>();
@@ -19,28 +20,32 @@ public class TurnManager : MonoBehaviour
 
 	private void Start()
 	{
-		TurnCountChanges?.Invoke(_commands.Count);//Count is 0 on level load.
+		TurnCountChanges?.Invoke(TurnCount);//Count is 0 on level load.
 	}
 
 	public void ExecuteCommand(Command command)
 	{
 		command.Execute(AfterTurnExecutedEvent);
 		_commands.Push(command);
-		TurnCountChanges?.Invoke(_commands.Count);
+		if (command.IsPlayerInput)
+		{
+			TurnCount++;
+			TurnCountChanges?.Invoke(TurnCount);
+		}
 	}
 
 	public void Undo()
 	{
-		if (_commands.Count > 0)
+		while (_commands.Count > 0)
 		{
-			Command latest = _commands.Pop();
-			latest.Undo(AfterUndoEvent);
-			TurnCountChanges?.Invoke(_commands.Count);
+			var command = _commands.Pop();
+			command.Undo(AfterUndoEvent);
+			if (command.IsPlayerInput)
+			{
+				TurnCount--;
+				TurnCountChanges?.Invoke(TurnCount);
+				break;
+			}
 		}
-	}
-
-	public int GetTurnCount()
-	{
-		return _commands.Count;
 	}
 }

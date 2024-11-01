@@ -30,7 +30,7 @@ public class HighScoreManager : MonoBehaviour
     {
         //Get the data we need in a more usable format.
         float levelCompletionTime = timer.GetTime();
-        int turnsTaken = _turnManager.GetTurnCount();
+        int turnsTaken = _turnManager.TurnCount;
         
         CheckForHighScore(currentLevel, levelCompletionTime,turnsTaken);
     }

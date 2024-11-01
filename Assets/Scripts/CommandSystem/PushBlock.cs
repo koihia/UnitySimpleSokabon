@@ -14,6 +14,7 @@ namespace Sokabon.CommandSystem
 			_pusher = pusher;
 			_pushed = pushed;
 			_direction = direction;
+			IsPlayerInput = true;
 		}
 
 		public override void Execute(Action onComplete)

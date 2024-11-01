@@ -47,7 +47,7 @@ namespace Sokabon
             {
                 if (!block.IsAnimating && block.isAffectedByGravity && block.IsDirectionFree(gravityDirection))
                 {
-                    turnManager.ExecuteCommand(new Move(block, gravityDirection));
+                    turnManager.ExecuteCommand(new Move(block, gravityDirection, false));
                 }
             }
 
@@ -58,6 +58,7 @@ namespace Sokabon
         {
             if (direction == Vector2Int.zero)
             {
+                turnManager.ExecuteCommand(new PlayerNoOp());
                 return true;
             }
 
@@ -70,7 +71,7 @@ namespace Sokabon
 
             if (playerBlock.IsDirectionFree(direction))
             {
-                turnManager.ExecuteCommand(new Move(playerBlock, direction));
+                turnManager.ExecuteCommand(new Move(playerBlock, direction, true));
                 return true;
             }
 

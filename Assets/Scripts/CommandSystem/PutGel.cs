@@ -12,6 +12,7 @@ namespace Sokabon.CommandSystem
         {
             _gelPrefab = gelPrefab;
             _player = player;
+            IsPlayerInput = true;
         }
         
         public override void Execute(System.Action onComplete)
