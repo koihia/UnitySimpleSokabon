@@ -18,13 +18,20 @@ namespace Sokabon.Trigger
             }
         }
 
-        protected override void OnTrigger(Trigger trigger)
+        protected override void OnSokabonTriggerEnter(Trigger trigger)
         {
-            TriggerGravity triggerGravity = trigger as TriggerGravity;
-            if (triggerGravity)
+            var triggerGravity = trigger as TriggerGravity;
+            if (triggerGravity is null)
             {
-                _blockManager.gravityDirection = triggerGravity.GravityDirection;
+                return;
             }
+            
+            _blockManager.gravityDirection = triggerGravity.GravityDirection;
+        }
+
+        protected override void OnSokabonTriggerExit(Trigger trigger)
+        {
+            // Do nothing
         }
     }
 }

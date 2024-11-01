@@ -5,6 +5,7 @@ namespace Sokabon.Trigger
     public abstract class TriggerTarget : MonoBehaviour
     {
         [SerializeField] private LayerSettings layerSettings;
+        private Trigger _trigger;
 
         private Block _block;
 
@@ -31,10 +32,25 @@ namespace Sokabon.Trigger
         private void CheckForTrigger()
         {
             Collider2D col = Physics2D.OverlapCircle(transform.position, 0.3f, layerSettings.triggerLayerMask);
-            Trigger trigger = col?.GetComponent<Trigger>();
-            OnTrigger(trigger);
+            Trigger nextTrigger = col?.GetComponent<Trigger>();
+             
+            if (_trigger != nextTrigger)
+            {
+                if (_trigger)
+                {
+                    OnSokabonTriggerExit(_trigger);
+                }
+
+                _trigger = nextTrigger;
+
+                if (_trigger)
+                {
+                    OnSokabonTriggerEnter(_trigger);
+                }
+            }
         }
 
-        protected abstract void OnTrigger(Trigger trigger);
+        protected abstract void OnSokabonTriggerEnter(Trigger trigger);
+        protected abstract void OnSokabonTriggerExit(Trigger trigger);
     }
 }

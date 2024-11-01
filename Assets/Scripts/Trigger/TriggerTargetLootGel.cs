@@ -3,21 +3,28 @@
     public class TriggerTargetLootGel : TriggerTarget
     {
         private Player _player;
-        
+
         protected override void Awake()
         {
             base.Awake();
             _player = GetComponent<Player>();
         }
-        
-        protected override void OnTrigger(Trigger trigger)
+
+        protected override void OnSokabonTriggerEnter(Trigger trigger)
         {
             TriggerLootGel triggerLootGel = trigger as TriggerLootGel;
-            if (triggerLootGel)
+            if (triggerLootGel is null)
             {
-                Destroy(triggerLootGel.gameObject);
-                _player._gelCount++;
+                return;
             }
+
+            Destroy(triggerLootGel.gameObject);
+            _player._gelCount++;
+        }
+
+        protected override void OnSokabonTriggerExit(Trigger trigger)
+        {
+            // Do nothing
         }
     }
 }

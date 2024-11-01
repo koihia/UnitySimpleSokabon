@@ -10,9 +10,24 @@
             _block = GetComponent<Block>();
         }
         
-        protected override void OnTrigger(Trigger trigger)
+        protected override void OnSokabonTriggerEnter(Trigger trigger)
         {
-            _block.isAffectedByGravity = trigger is not TriggerGel;
+            if (trigger is not TriggerGel)
+            {
+                return;
+            }
+            
+            _block.isAffectedByGravity = false;
+        }
+        
+        protected override void OnSokabonTriggerExit(Trigger trigger)
+        {
+            if (trigger is not TriggerGel)
+            {
+                return;
+            }
+
+            _block.isAffectedByGravity = true;
         }
     }
 }

@@ -19,23 +19,26 @@ namespace Sokabon.Trigger
             _atGoalColor = Color.Lerp(_defaultColor, Color.black, 0.5f);
         }
 
-        protected override void OnTrigger(Trigger trigger)
+        protected override void OnSokabonTriggerEnter(Trigger trigger)
         {
-            if (isOnGoal(trigger))
+            TriggerGoal triggerGoal = trigger as TriggerGoal;
+            if (triggerGoal?.GoalType != GoalType)
             {
-                AtGoal = true;
-                _spriteRenderer.color = _atGoalColor;
+                return;
             }
-            else
-            {
-                AtGoal = false;
-                _spriteRenderer.color = _defaultColor;
-            }
+            AtGoal = true;
+            _spriteRenderer.color = _atGoalColor;
         }
 
-        private bool isOnGoal(Trigger trigger)
+        protected override void OnSokabonTriggerExit(Trigger trigger)
         {
-            return (trigger as TriggerGoal)?.GoalType == GoalType;
+            TriggerGoal triggerGoal = trigger as TriggerGoal;
+            if (triggerGoal?.GoalType != GoalType)
+            {
+                return;
+            }
+            AtGoal = false;
+            _spriteRenderer.color = _defaultColor;
         }
     }
 }
