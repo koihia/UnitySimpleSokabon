@@ -21,10 +21,11 @@ namespace Sokabon
 		private bool _canMove = true;
 		public bool IsDead { get; private set; }
 		
-		private Queue<Vector2Int> _movementQueue;
+		private Queue<Func<bool>> _actionQueue;
+
 		private void Awake()
 		{
-			_movementQueue = new Queue<Vector2Int>();
+			_actionQueue = new ();
 			_canMove = true;
 			_block = GetComponent<Block>();
 
@@ -88,42 +89,48 @@ namespace Sokabon
 			//Todo: Joystick support. Switch to new input system.
 			if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
 			{
-				_movementQueue.Enqueue(Vector2Int.up);
+				_actionQueue.Enqueue(() => blockManager.PlayerTryMove(_block, Vector2Int.up));
 			}
 			else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
 			{
-				_movementQueue.Enqueue(Vector2Int.down);
+				_actionQueue.Enqueue(() => blockManager.PlayerTryMove(_block, Vector2Int.down));
 			}
 			else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
 			{
-				_movementQueue.Enqueue(Vector2Int.left);
+				_actionQueue.Enqueue(() => blockManager.PlayerTryMove(_block, Vector2Int.left));
 			}
 			else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
 			{
-				_movementQueue.Enqueue(Vector2Int.right);
+				_actionQueue.Enqueue(() => blockManager.PlayerTryMove(_block, Vector2Int.right));
 			}
 			else if (Input.GetKeyDown(KeyCode.Space))
 			{
-				_movementQueue.Enqueue(Vector2Int.zero);
+				_actionQueue.Enqueue(() => blockManager.PlayerTryMove(_block, Vector2Int.zero));
 			}
 			else if (Input.GetKeyDown(KeyCode.E))
 			{
-				if (!_block.IsAnimating && _gelCount > 0)
+				_actionQueue.Enqueue(() =>
 				{
+					if (_gelCount <= 0)
+					{
+						return false;
+					}
+
 					_turnManager.ExecuteCommand(new PutGel(gelPrefab, this));
-				}
+					return true;
+				});
 			}
 			else if (Input.GetKeyDown(KeyCode.Z))
 			{
 				_turnManager.Undo();
 			}
 
-			if (!_block.IsAnimating && _movementQueue.Count > 0)
+			if (!_block.IsAnimating && _actionQueue.Count > 0)
 			{
-				Vector2Int dir = _movementQueue.Dequeue();
-				if (!blockManager.PlayerTryMove(_block, dir))
+				var action = _actionQueue.Dequeue();
+				if (!action())
 				{
-					_movementQueue.Clear();
+					_actionQueue.Clear();
 				}
 			}
 			
