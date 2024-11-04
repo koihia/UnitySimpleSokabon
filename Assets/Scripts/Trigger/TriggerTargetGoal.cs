@@ -25,6 +25,7 @@ namespace Sokabon.Trigger
             }
             
             _turnManager.ExecuteCommand(new ChangeAtGoal(true, this, _spriteRenderer));
+            _soundManager?.PlayOnGoalSound();
         }
 
         protected override void OnSokabonTriggerExit(Trigger trigger)

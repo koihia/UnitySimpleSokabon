@@ -1,14 +1,30 @@
 using Sokabon;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class LevelManager : MonoBehaviour
 {
     public string nextLevel;
     public static int CurrentLevelIndex => SceneManager.GetActiveScene().buildIndex;
 
+    private SoundManager soundManager;
+
+    private void Awake()
+    {
+        soundManager = FindObjectOfType<SoundManager>();
+    }
+
     public void RestartLevel()
     {
+        StartCoroutine(RestartLevelCoroutine());
+    }
+
+    private IEnumerator RestartLevelCoroutine()
+    {
+        soundManager?.PlayRestartSound();
+        yield return new WaitForSeconds(1f);
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

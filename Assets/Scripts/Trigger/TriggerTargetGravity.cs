@@ -28,6 +28,7 @@ namespace Sokabon.Trigger
             }
             
             _turnManager.ExecuteCommand(new ChangeGravity(_blockManager, triggerGravity.GravityDirection));
+            _soundManager?.PlayTriggerGravitySound();
         }
 
         protected override void OnSokabonTriggerExit(Trigger trigger)

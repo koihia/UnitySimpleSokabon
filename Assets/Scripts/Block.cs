@@ -10,6 +10,8 @@ namespace Sokabon
     public class Block : MonoBehaviour
     {
         public Action AtNewPositionEvent;
+        public Action BlockLanding;
+        private BlockManager _blockManager;
         [SerializeField] private MovementSettings movementSettings;
         public bool IsAnimating => _animating; 
         private bool _animating;
@@ -17,6 +19,17 @@ namespace Sokabon
         public bool isAffectedByGravity = true;
         
         [SerializeField] private LayerSettings layerSettings;
+
+        private void Awake()
+        {
+            if (_blockManager == null)
+            {
+                Debug.LogWarning(
+                    "Block object needs BlockManager set, or BlockManager not found in scene. Searching for one.",
+                    gameObject);
+                _blockManager = FindObjectOfType<BlockManager>();
+            }
+        }
 
         public Vector3 GetPosInDir(Vector2Int direction)
         {
@@ -35,11 +48,11 @@ namespace Sokabon
             }
             else
             {
-                StartCoroutine(AnimateMove(destination,onComplete));
+                StartCoroutine(AnimateMove(direction,destination,onComplete));
             }
         }
 
-        public IEnumerator AnimateMove(Vector3 destination, Action onComplete)
+        public IEnumerator AnimateMove(Vector2Int direction, Vector3 destination, Action onComplete)
         {
             _animating = true;
             Vector3 start = transform.position;
@@ -55,6 +68,12 @@ namespace Sokabon
             AtNewPositionEvent?.Invoke();
             onComplete?.Invoke();
             _animating = false;
+
+            if (GetComponent<Player>() == null && _blockManager.gravityDirection == direction &&
+                !IsDirectionFree(direction))
+            {
+                BlockLanding?.Invoke();
+            }
         }
 
         public bool IsDirectionFree(Vector2Int direction)

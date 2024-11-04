@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     private TriggerTargetGoal[] _goalTargets;
     private int _goalCount;
     private GameTimer _timer;
+
+    public event Action OnWin;
     
     private void Awake()
     {
@@ -94,6 +96,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("We win!");
             _timer.Stop();
             machine.SetCurrentState(victoryState);
+            OnWin?.Invoke();
         }
     }
 
