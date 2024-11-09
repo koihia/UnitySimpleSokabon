@@ -80,7 +80,19 @@ namespace Sokabon
                 (gravityDirection == Vector2Int.zero || !pushedBlock.isAffectedByGravity ||
                  !pushedBlock.IsDirectionFree(gravityDirection)))
             {
-                turnManager.ExecuteCommand(new PushBlock(playerBlock, pushedBlock, direction));
+                if (!pushedBlock.hasInertia)
+                {
+                    turnManager.ExecuteCommand(new PushBlock(playerBlock, pushedBlock, direction, 1));
+                    return true;
+                }
+
+                int times = 1;
+                while (pushedBlock.IsDirectionFree((times + 1) * direction))
+                {
+                    times++;
+                }
+                Debug.Log(times);
+                turnManager.ExecuteCommand(new PushBlock(playerBlock, pushedBlock, direction, times));
                 return true;
             }
 

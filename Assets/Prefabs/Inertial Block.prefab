@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2109486553493542693}
   - component: {fileID: 3287785884369118103}
   m_Layer: 6
-  m_Name: Block
+  m_Name: Inertial Block
   m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.509434, g: 0.22347811, b: 0.22347811, a: 1}
+  m_Color: {r: 0.50980395, g: 0.2235294, b: 0.46781707, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSettings: {fileID: 11400000, guid: c184963bbd747444f87547c118be3bfa, type: 2}
-  hasInertia: 0
+  hasInertia: 1
   isAffectedByGravity: 1
   layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}
 --- !u!114 &553520236437764128

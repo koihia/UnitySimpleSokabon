@@ -15,6 +15,7 @@ namespace Sokabon
         [SerializeField] private MovementSettings movementSettings;
         public bool IsAnimating => _animating; 
         private bool _animating;
+        public bool hasInertia;
         
         public bool isAffectedByGravity = true;
         
