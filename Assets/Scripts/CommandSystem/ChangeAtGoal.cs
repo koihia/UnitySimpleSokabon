@@ -12,12 +12,13 @@ namespace Sokabon.CommandSystem
         private readonly Color _defaultColor;
         private readonly Color _atGoalColor;
 
-        public ChangeAtGoal(bool newAtGoal, TriggerTargetGoal triggerTargetGoal, SpriteRenderer spriteRenderer)
+        public ChangeAtGoal(bool newAtGoal, TriggerTargetGoal triggerTargetGoal, SpriteRenderer spriteRenderer,
+            Color defaultColor)
         {
             _newAtGoal = newAtGoal;
             _triggerTargetGoal = triggerTargetGoal;
             _spriteRenderer = spriteRenderer;
-            _defaultColor = _spriteRenderer.color;
+            _defaultColor = defaultColor;
             _atGoalColor = Color.Lerp(_defaultColor, Color.black, 0.5f);
         }
         

@@ -20,7 +20,7 @@ namespace Sokabon.Trigger
 
         private void Start()
         {
-            CheckForTrigger();
+            CheckForTrigger(false);
         }
 
         private void OnEnable()
@@ -33,7 +33,7 @@ namespace Sokabon.Trigger
             _block.AtNewPositionEvent -= CheckForTrigger;
         }
 
-        private void CheckForTrigger()
+        private void CheckForTrigger(bool isReplay)
         {
             // TODO: detect multiple triggers
             Collider2D col = Physics2D.OverlapCircle(transform.position, 0.3f, layerSettings.triggerLayerMask);
@@ -41,14 +41,14 @@ namespace Sokabon.Trigger
 
             if (_trigger != nextTrigger)
             {
-                if (_trigger)
+                if (_trigger && !isReplay)
                 {
                     OnSokabonTriggerExitEvent?.Invoke(_trigger);
                 }
 
                 _trigger = nextTrigger;
 
-                if (_trigger)
+                if (_trigger && !isReplay)
                 {
                     OnSokabonTriggerEnterEvent?.Invoke(_trigger);
                 }

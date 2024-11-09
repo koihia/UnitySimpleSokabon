@@ -9,7 +9,7 @@ namespace Sokabon
 {
     public class Block : MonoBehaviour
     {
-        public Action AtNewPositionEvent;
+        public Action<bool> AtNewPositionEvent;
         public Action BlockLanding;
         private BlockManager _blockManager;
         [SerializeField] private MovementSettings movementSettings;
@@ -36,23 +36,23 @@ namespace Sokabon
             return transform.position + new Vector3(direction.x, direction.y, 0);
         }
 
-        public void MoveInDirection(Vector2Int direction, bool instant, Action onComplete)
+        public void MoveInDirection(Vector2Int direction, bool instant, bool isReplay, Action onComplete)
         {
             Vector3 destination = GetPosInDir(direction);
 
             if (instant)
             {
                 transform.position = destination;
-                AtNewPositionEvent?.Invoke();
+                AtNewPositionEvent?.Invoke(isReplay);
                 onComplete?.Invoke();
             }
             else
             {
-                StartCoroutine(AnimateMove(direction,destination,onComplete));
+                StartCoroutine(AnimateMove(direction, destination, isReplay, onComplete));
             }
         }
 
-        public IEnumerator AnimateMove(Vector2Int direction, Vector3 destination, Action onComplete)
+        public IEnumerator AnimateMove(Vector2Int direction, Vector3 destination, bool isReplay, Action onComplete)
         {
             _animating = true;
             Vector3 start = transform.position;
@@ -65,7 +65,7 @@ namespace Sokabon
             }
 
             transform.position = destination;
-            AtNewPositionEvent?.Invoke();
+            AtNewPositionEvent?.Invoke(isReplay);
             onComplete?.Invoke();
             _animating = false;
 

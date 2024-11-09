@@ -60,7 +60,7 @@ namespace Sokabon
 			}
 		}
 		
-		private void CheckForDeath()
+		private void CheckForDeath(bool isReplay)
 		{
 			Collider2D col = Physics2D.OverlapCircle(transform.position, 0.3f, layerSettings.blockLayerMask);
 			if (col?.GetComponent<Block>() != null)

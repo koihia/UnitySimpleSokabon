@@ -17,12 +17,12 @@ namespace Sokabon.CommandSystem
 
 		public override void Execute(Action onComplete)
 		{
-			_block.MoveInDirection(_direction, false, onComplete);
+			_block.MoveInDirection(_direction, false, false, onComplete);
 		}
 
 		public override void Undo(Action onComplete)
 		{
-			_block.MoveInDirection(-_direction, true, onComplete);
+			_block.MoveInDirection(-_direction, true, true, onComplete);
 		}
 	}
 }
