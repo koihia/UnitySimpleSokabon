@@ -5,6 +5,7 @@ using System.Collections;
 
 public class LevelManager : MonoBehaviour
 {
+    [SerializeField] private Animator transition;
     public string nextLevel;
     public static int CurrentLevelIndex => SceneManager.GetActiveScene().buildIndex;
 
@@ -17,15 +18,7 @@ public class LevelManager : MonoBehaviour
 
     public void RestartLevel()
     {
-        StartCoroutine(RestartLevelCoroutine());
-    }
-
-    private IEnumerator RestartLevelCoroutine()
-    {
-        soundManager?.PlayRestartSound();
-        yield return new WaitForSeconds(1f);
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GoToLevel(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void GoToNextScene()
@@ -44,12 +37,24 @@ public class LevelManager : MonoBehaviour
         }
 
         //go to build index
-        SceneManager.LoadScene(next);
+        GoToLevel(next);
     }
     
     public void GoToLevel(int level)
     {
-        SceneManager.LoadScene("Level" + level);
+        LoadScene(level);
+    }
+    
+    private void LoadScene(int sceneBuildIndex)
+    {
+        StartCoroutine(LoadSceneHelper(sceneBuildIndex));
+    }
+
+    private IEnumerator LoadSceneHelper(int sceneBuildIndex)
+    {
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene(sceneBuildIndex);
     }
 
     public void GoToMenu()
