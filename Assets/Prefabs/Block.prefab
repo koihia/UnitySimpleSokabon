@@ -148,6 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSettings: {fileID: 11400000, guid: c184963bbd747444f87547c118be3bfa, type: 2}
   hasInertia: 0
+  inertiaDirection: {x: 0, y: 0}
   isAffectedByGravity: 1
   layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}
 --- !u!114 &553520236437764128

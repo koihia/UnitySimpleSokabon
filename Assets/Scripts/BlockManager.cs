@@ -38,13 +38,26 @@ namespace Sokabon
                 return false;
             }
 
-            if (gravityDirection == Vector2Int.zero)
-            {
-                return true;
-            }
-
             foreach (var block in _blocks)
             {
+                if (!block.IsAnimating && block.hasInertia && block.inertiaDirection != Vector2Int.zero)
+                {
+                    if (block.IsDirectionFree(block.inertiaDirection))
+                    {
+                        turnManager.ExecuteCommand(new Move(block, block.inertiaDirection, false));
+                        continue;
+                    }
+                    else
+                    {
+                        block.inertiaDirection = Vector2Int.zero;
+                    }
+                }
+
+                if (gravityDirection == Vector2Int.zero)
+                {
+                    continue;
+                }
+
                 if (!block.IsAnimating && block.isAffectedByGravity && block.IsDirectionFree(gravityDirection))
                 {
                     turnManager.ExecuteCommand(new Move(block, gravityDirection, false));
@@ -79,20 +92,8 @@ namespace Sokabon
             if (pushedBlock != null && pushedBlock.IsDirectionFree(direction) &&
                 (gravityDirection == Vector2Int.zero || !pushedBlock.isAffectedByGravity ||
                  !pushedBlock.IsDirectionFree(gravityDirection)))
-            {
-                if (!pushedBlock.hasInertia)
-                {
-                    turnManager.ExecuteCommand(new PushBlock(playerBlock, pushedBlock, direction, 1));
-                    return true;
-                }
-
-                int times = 1;
-                while (pushedBlock.IsDirectionFree((times + 1) * direction))
-                {
-                    times++;
-                }
-                Debug.Log(times);
-                turnManager.ExecuteCommand(new PushBlock(playerBlock, pushedBlock, direction, times));
+            {                
+                turnManager.ExecuteCommand(new PushBlock(playerBlock, pushedBlock, direction));
                 return true;
             }
 

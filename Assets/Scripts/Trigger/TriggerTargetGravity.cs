@@ -5,6 +5,8 @@ namespace Sokabon.Trigger
 {
     public class TriggerTargetGravity : TriggerTarget
     {
+        [SerializeField] private RectTransform pointer;
+        [SerializeField] private RectTransform cross;
         private BlockManager _blockManager;
 
         protected override void Awake()
@@ -27,7 +29,7 @@ namespace Sokabon.Trigger
                 return;
             }
             
-            _turnManager.ExecuteCommand(new ChangeGravity(_blockManager, triggerGravity.GravityDirection));
+            _turnManager.ExecuteCommand(new ChangeGravity(_blockManager, pointer, cross, triggerGravity.GravityDirection));
             _soundManager?.PlayTriggerGravitySound();
         }
 

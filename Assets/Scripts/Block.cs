@@ -16,6 +16,7 @@ namespace Sokabon
         public bool IsAnimating => _animating; 
         private bool _animating;
         public bool hasInertia;
+        public Vector2Int inertiaDirection = Vector2Int.zero;
         
         public bool isAffectedByGravity = true;
         
