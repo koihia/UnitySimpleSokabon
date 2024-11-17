@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1066786801705353150}
   - component: {fileID: 1066786801705353149}
   - component: {fileID: 1066786801705353136}
-  - component: {fileID: 6552512643096187923}
+  - component: {fileID: 3440624319911822834}
   m_Layer: 7
   m_Name: Loot Gel
   m_TagString: Untagged
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &6552512643096187923
+--- !u!114 &3440624319911822834
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,7 +130,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1066786801705353148}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61ea3cde67ec4e218f8c11ab14ac53f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d3e910f01664fe281a225af46942f3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}
+  <ItemData>k__BackingField: {fileID: 11400000, guid: d1bf1bfb9803cf24ea2d879cb912c9e6, type: 2}

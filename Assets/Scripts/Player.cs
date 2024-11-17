@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Sokabon.CommandSystem;
+using Sokabon.InventorySystem;
 using Sokabon.StateMachine;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,11 +12,11 @@ namespace Sokabon
 {
 	public class Player : StateChangeListener
 	{
-		public int _gelCount = 0;
-		[SerializeField] private GameObject gelPrefab;
 		[SerializeField] private LayerSettings layerSettings;
 
 		private Block _block;
+        private Inventory _inventory;
+
 		[SerializeField] private TurnManager _turnManager;
 		[SerializeField] private BlockManager blockManager;
 		private bool _canMove = true;
@@ -28,6 +29,7 @@ namespace Sokabon
 			_actionQueue = new ();
 			_canMove = true;
 			_block = GetComponent<Block>();
+			_inventory = GetComponent<Inventory>();
 
 			var blocks = FindObjectsOfType<Block>();
 			foreach (var block in blocks)
@@ -107,23 +109,32 @@ namespace Sokabon
 			{
 				_actionQueue.Enqueue(() => blockManager.PlayerTryMove(_block, Vector2Int.zero));
 			}
-			else if (Input.GetKeyDown(KeyCode.E))
-			{
-				_actionQueue.Enqueue(() =>
-				{
-					if (_gelCount <= 0)
-					{
-						return false;
-					}
-
-					_turnManager.ExecuteCommand(new PutGel(gelPrefab, this));
-					return true;
-				});
-			}
 			else if (Input.GetKeyDown(KeyCode.Z))
 			{
 				_turnManager.Undo();
 			}
+			else if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || 
+			                      Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Alpha4) || 
+			                      Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                int itemIndex = -1;
+                if (Input.GetKeyDown(KeyCode.Alpha1)) itemIndex = 0;
+                else if (Input.GetKeyDown(KeyCode.Alpha2)) itemIndex = 1;
+                else if (Input.GetKeyDown(KeyCode.Alpha3)) itemIndex = 2;
+                else if (Input.GetKeyDown(KeyCode.Alpha4)) itemIndex = 3;
+                else if (Input.GetKeyDown(KeyCode.Alpha5)) itemIndex = 4;
+
+                _actionQueue.Enqueue(() =>
+                {
+                    if (!_inventory.IsItemIndexValid(itemIndex))
+                    {
+                        return false;
+                    }
+                    
+                    _turnManager.ExecuteCommand(new PutItem(_inventory, itemIndex));
+                    return true;
+                });
+            }
 
 			if (!_block.IsAnimating && _actionQueue.Count > 0)
 			{

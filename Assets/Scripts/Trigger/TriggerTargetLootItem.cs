@@ -1,26 +1,27 @@
 ﻿using Sokabon.CommandSystem;
+using Sokabon.InventorySystem;
 
 namespace Sokabon.Trigger
 {
-    public class TriggerTargetLootGel : TriggerTarget
+    public class TriggerTargetLootItem : TriggerTarget
     {
-        private Player _player;
+        private Inventory _inventory;
 
         protected override void Awake()
         {
             base.Awake();
-            _player = GetComponent<Player>();
+            _inventory = GetComponent<Inventory>();
         }
 
         protected override void OnSokabonTriggerEnter(Trigger trigger)
         {
-            TriggerLootGel triggerLootGel = trigger as TriggerLootGel;
-            if (triggerLootGel is null)
+            var triggerLootItem = trigger as TriggerLootItem;
+            if (triggerLootItem is null)
             {
                 return;
             }
 
-            _turnManager.ExecuteCommand(new PickUpGelLoot(_player, triggerLootGel));
+            _turnManager.ExecuteCommand(new PickUpLootItem(_inventory, triggerLootItem));
         }
 
         protected override void OnSokabonTriggerExit(Trigger trigger)
