@@ -17,6 +17,8 @@ namespace Sokabon
         private bool _animating;
         
         public bool isAffectedByGravity = true;
+        public bool isAffectedByInertia = false;
+        public Vector2Int previousMoveDirection;
         
         [SerializeField] private LayerSettings layerSettings;
 

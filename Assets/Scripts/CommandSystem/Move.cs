@@ -7,6 +7,7 @@ namespace Sokabon.CommandSystem
 	{
 		private Block _block;
 		private Vector2Int _direction;
+		private Vector2Int _oldPreviousDirection;
 
 		public Move(Block block, Vector2Int direction, bool isPlayerInput)
 		{
@@ -17,11 +18,14 @@ namespace Sokabon.CommandSystem
 
 		public override void Execute(Action onComplete)
 		{
+			_oldPreviousDirection = _block.previousMoveDirection;
+			_block.previousMoveDirection = _direction;
 			_block.MoveInDirection(_direction, false, false, onComplete);
 		}
 
 		public override void Undo(Action onComplete)
 		{
+			_block.previousMoveDirection = _oldPreviousDirection;
 			_block.MoveInDirection(-_direction, true, true, onComplete);
 		}
 	}
