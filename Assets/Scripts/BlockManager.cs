@@ -8,7 +8,22 @@ namespace Sokabon
 {
     public class BlockManager : MonoBehaviour
     {
-        public Vector2Int gravityDirection = Vector2Int.zero;
+        private Vector2Int _gravityDirection = Vector2Int.zero;
+        public event Action<Vector2Int> OnGravityDirectionChanges;
+
+        public Vector2Int GravityDirection
+        {
+            get => _gravityDirection;
+            set
+            {
+                if (_gravityDirection != value)
+                {
+                    _gravityDirection = value;
+                    OnGravityDirectionChanges?.Invoke(_gravityDirection);
+                }
+            }
+        }
+
         [SerializeField] private TurnManager turnManager;
 
         private Block[] _blocks;
@@ -29,6 +44,11 @@ namespace Sokabon
                     gameObject);
                 turnManager = FindObjectOfType<TurnManager>();
             }
+        }
+        
+        public void Start()
+        {
+            OnGravityDirectionChanges?.Invoke(GravityDirection);
         }
 
         public bool PlayerTryMove(Block playerBlock, Vector2Int direction)
@@ -61,9 +81,9 @@ namespace Sokabon
                 }
                 
                 // tick gravity blocks
-                if (block.isAffectedByGravity && gravityDirection != Vector2Int.zero && block.IsDirectionFree(gravityDirection))
+                if (block.isAffectedByGravity && GravityDirection != Vector2Int.zero && block.IsDirectionFree(GravityDirection))
                 {
-                    turnManager.ExecuteCommand(new Move(block, gravityDirection, false));
+                    turnManager.ExecuteCommand(new Move(block, GravityDirection, false));
                 }
             }
 
@@ -78,8 +98,8 @@ namespace Sokabon
                 return true;
             }
 
-            if ((gravityDirection != Vector2Int.zero && playerBlock.isAffectedByGravity &&
-                 (gravityDirection + direction == Vector2Int.zero || playerBlock.IsDirectionFree(gravityDirection))) || 
+            if ((GravityDirection != Vector2Int.zero && playerBlock.isAffectedByGravity &&
+                 (GravityDirection + direction == Vector2Int.zero || playerBlock.IsDirectionFree(GravityDirection))) || 
                 playerBlock.isAffectedByInertia && playerBlock.previousMoveDirection != Vector2Int.zero)
             {
                 return false;
@@ -94,8 +114,8 @@ namespace Sokabon
             Block pushedBlock = playerBlock.BlockInDirection(direction);
             if (pushedBlock != null && pushedBlock.IsDirectionFree(direction) &&
                 (pushedBlock.isAffectedByInertia && pushedBlock.previousMoveDirection == direction ||
-                 !pushedBlock.isAffectedByGravity || gravityDirection == Vector2Int.zero ||
-                 !pushedBlock.IsDirectionFree(gravityDirection)))
+                 !pushedBlock.isAffectedByGravity || GravityDirection == Vector2Int.zero ||
+                 !pushedBlock.IsDirectionFree(GravityDirection)))
             {
                 turnManager.ExecuteCommand(new PushBlock(playerBlock, pushedBlock, direction));
                 return true;

@@ -12,19 +12,19 @@ namespace Sokabon.CommandSystem
         public ChangeGravity(BlockManager blockManager, Vector2Int newGravityDirection)
         {
             _blockManager = blockManager;
-            _currentGravityDirection = _blockManager.gravityDirection;
+            _currentGravityDirection = _blockManager.GravityDirection;
             _newGravityDirection = newGravityDirection;
         }
         
         public override void Execute(Action onComplete)
         {
-            _blockManager.gravityDirection = _newGravityDirection;
+            _blockManager.GravityDirection = _newGravityDirection;
             onComplete?.Invoke();
         }
         
         public override void Undo(Action onComplete)
         {
-            _blockManager.gravityDirection = _currentGravityDirection;
+            _blockManager.GravityDirection = _currentGravityDirection;
             onComplete?.Invoke();
         }
     }

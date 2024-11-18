@@ -71,7 +71,7 @@ namespace Sokabon
             onComplete?.Invoke();
             _animating = false;
 
-            if (GetComponent<Player>() == null && _blockManager.gravityDirection == direction &&
+            if (GetComponent<Player>() == null && _blockManager.GravityDirection == direction &&
                 !IsDirectionFree(direction))
             {
                 BlockLanding?.Invoke();
