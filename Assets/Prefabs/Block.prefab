@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 553520236437764128}
   - component: {fileID: 2109486553493542693}
   - component: {fileID: 3287785884369118103}
+  - component: {fileID: 2167559928296613778}
   m_Layer: 6
   m_Name: Block
   m_TagString: Block
@@ -148,6 +149,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSettings: {fileID: 11400000, guid: c184963bbd747444f87547c118be3bfa, type: 2}
   isAffectedByGravity: 1
+  isAffectedByInertia: 0
+  previousMoveDirection: {x: 0, y: 0}
   layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}
 --- !u!114 &553520236437764128
 MonoBehaviour:
@@ -184,6 +187,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30bf5b1e4e0249a6bb9e3230a8d2aef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}
+--- !u!114 &2167559928296613778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4578409831997720051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98aa092235f24b2f96f0f8c54b51179e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}

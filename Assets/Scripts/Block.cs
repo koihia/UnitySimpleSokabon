@@ -78,6 +78,14 @@ namespace Sokabon
             }
         }
 
+        public void Teleport(Vector3 destination, bool instant, bool isReplay, Action onComplete)
+        {
+            // TODO: Animate teleport
+            transform.position = destination;
+            AtNewPositionEvent?.Invoke(isReplay);
+            onComplete?.Invoke();
+        }
+
         public bool IsDirectionFree(Vector2Int direction)
         {
             Vector3 position = GetPosInDir(direction);

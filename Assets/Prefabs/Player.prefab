@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 1126049433005193829}
   - component: {fileID: 847066510641346071}
   - component: {fileID: 1652021320907777988}
+  - component: {fileID: 4478348323326896841}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -107,6 +108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSettings: {fileID: 11400000, guid: c184963bbd747444f87547c118be3bfa, type: 2}
   isAffectedByGravity: 1
+  isAffectedByInertia: 0
+  previousMoveDirection: {x: 0, y: 0}
   layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}
 --- !u!61 &8391423207400783676
 BoxCollider2D:
@@ -244,3 +247,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad015c15d4248b18d248b1aadd1c4ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4478348323326896841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8391423207400783673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98aa092235f24b2f96f0f8c54b51179e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}
