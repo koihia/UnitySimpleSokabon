@@ -128,16 +128,7 @@ namespace Sokabon
                 else if (Input.GetKeyDown(KeyCode.Alpha4)) itemIndex = 3;
                 else if (Input.GetKeyDown(KeyCode.Alpha5)) itemIndex = 4;
 
-                _actionQueue.Enqueue(() =>
-                {
-                    if (!_inventory.IsItemIndexValid(itemIndex))
-                    {
-                        return false;
-                    }
-                    
-                    _turnManager.ExecuteCommand(new PutItem(_inventory, itemIndex));
-                    return true;
-                });
+                _actionQueue.Enqueue(() => TryPutItem(itemIndex));
             }
 
 			if (!_block.IsAnimating && _actionQueue.Count > 0)
@@ -149,6 +140,22 @@ namespace Sokabon
 				}
 			}
 			
+		}
+		
+		private bool TryPutItem(int itemIndex)
+		{
+			if (!_inventory.IsItemIndexValid(itemIndex))
+			{
+				return false;
+			}
+			var col = Physics2D.OverlapCircle(transform.position, 0.3f, layerSettings.triggerLayerMask);
+			if (col is not null)
+			{
+				return false;
+			}
+			
+			_turnManager.ExecuteCommand(new PutItem(_inventory, itemIndex));
+			return true;
 		}
 	}
 }
