@@ -15,7 +15,7 @@ namespace Sokabon.Trigger
         protected void Start()
         {
             // Block initialize the sprite renderer in Awake, so we need to get it here
-            _spriteRenderer = GetComponent<Block>().sprite.GetComponent<SpriteRenderer>();
+            _spriteRenderer = GetComponent<Block>().sprite.Find("Base").GetComponent<SpriteRenderer>();
             _defaultColor = _spriteRenderer.color;
         }
 

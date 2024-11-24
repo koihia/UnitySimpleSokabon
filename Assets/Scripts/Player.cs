@@ -61,7 +61,28 @@ namespace Sokabon
 				blockManager = FindObjectOfType<BlockManager>();
 			}
 		}
-		
+
+		protected override void OnEnable()
+		{
+			base.OnEnable();
+			TurnManager.AfterTurnExecutedEvent += blockManager.UpdateBlocksNextMoveDirection;
+			TurnManager.AfterUndoEvent += blockManager.UpdateBlocksNextMoveDirection;
+		}
+
+		protected override void OnDisable()
+		{
+			base.OnDisable();
+			TurnManager.AfterTurnExecutedEvent -= blockManager.UpdateBlocksNextMoveDirection;
+			TurnManager.AfterUndoEvent -= blockManager.UpdateBlocksNextMoveDirection;
+		}
+
+		private void Start()
+		{
+			// Note: This is a bit of a hack. We need to update the blocks next move direction after the level is loaded
+			// in Start() because Block initiates its BlockManager in Awake() so we can't do this in OnEnable().
+			blockManager.UpdateBlocksNextMoveDirection();
+		}
+
 		private void CheckForDeath(bool isReplay)
 		{
 			if (isReplay)

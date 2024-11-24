@@ -89,6 +89,11 @@ public class GameManager : MonoBehaviour
 
     private void CheckForVictory()
     {
+        if (machine.IsCurrentState(victoryState))
+        {
+            return;
+        }
+
         // Check if there are _goalCount goal targets on goals
         bool victory = _goalTargets.Count(target => target.AtGoal) >= _goalCount;
         if (victory)

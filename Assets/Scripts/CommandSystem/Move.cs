@@ -19,14 +19,12 @@ namespace Sokabon.CommandSystem
 		public override void Execute(Action onComplete)
 		{
 			_oldPreviousDirection = _block.previousMoveDirection;
-			_block.previousMoveDirection = _direction;
-			_block.MoveInDirection(_direction, false, false, onComplete);
+			_block.MoveInDirection(_direction, false, false, null, onComplete);
 		}
 
 		public override void Undo(Action onComplete)
 		{
-			_block.previousMoveDirection = _oldPreviousDirection;
-			_block.MoveInDirection(-_direction, true, true, onComplete);
+			_block.MoveInDirection(-_direction, true, true, _oldPreviousDirection, onComplete);
 		}
 	}
 }

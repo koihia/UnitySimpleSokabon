@@ -15,13 +15,15 @@ namespace Sokabon
         [SerializeField] private MovementSettings movementSettings;
 
         public Transform sprite;
+        private Transform _movementIndicator;
         public Rigidbody2D rb;
         public bool IsAnimating => _animating; 
         private bool _animating;
-        
-        public bool isAffectedByGravity = true;
+
+        public bool isAffectedByGravity;
         public bool isAffectedByInertia = false;
         public Vector2Int previousMoveDirection;
+        public Vector2Int nextMoveDirection;
         
         [SerializeField] private LayerSettings layerSettings;
 
@@ -34,14 +36,20 @@ namespace Sokabon
                     gameObject);
                 _blockManager = FindObjectOfType<BlockManager>();
             }
-            
-            sprite = transform.GetChild(0);
+
+            sprite = transform.Find("Sprite");
             if (sprite is null)
             {
                 Debug.LogError("SpriteRenderer not found in children of Block object.", gameObject);
             }
+
+            _movementIndicator = transform.Find("Sprite/Next Move Direction Indicator");
+            if (_movementIndicator is null)
+            {
+                Debug.LogError("Movement Indicator not found in children of Block object.", gameObject);
+            }
+
             rb = GetComponent<Rigidbody2D>();
-            
         }
 
         public Vector2 GetPosInDir(Vector2Int direction)
@@ -49,9 +57,11 @@ namespace Sokabon
             return rb.position + direction;
         }
 
-        public void MoveInDirection(Vector2Int direction, bool instant, bool isReplay, Action onComplete)
+        public void MoveInDirection(Vector2Int direction, bool instant, bool isReplay, Vector2Int? previousDirection,
+            Action onComplete)
         {
             var destination = GetPosInDir(direction);
+            previousMoveDirection = previousDirection ?? direction;
 
             if (instant)
             {
@@ -121,6 +131,45 @@ namespace Sokabon
             else
             {
                 return null;
+            }
+        }
+
+        public void UpdateNextMoveDirection()
+        {
+            nextMoveDirection = Vector2Int.zero;
+
+            if (isAffectedByInertia && previousMoveDirection != Vector2Int.zero)
+            {
+                if (IsDirectionFree(previousMoveDirection))
+                {
+                    nextMoveDirection = previousMoveDirection;
+                }
+                else
+                {
+                    // XXX: Is bypassing the command system here safe?
+                    previousMoveDirection = Vector2Int.zero;
+                }
+            }
+
+            if (nextMoveDirection == Vector2Int.zero && isAffectedByGravity &&
+                _blockManager.GravityDirection != Vector2Int.zero && IsDirectionFree(_blockManager.GravityDirection))
+            {
+                nextMoveDirection = _blockManager.GravityDirection;
+            }
+
+            UpdateNextMoveDirectionIndicator();
+        }
+
+        private void UpdateNextMoveDirectionIndicator()
+        {
+            // TODO: Animate move direction indicator
+            _movementIndicator.gameObject.SetActive(false);
+
+            if (nextMoveDirection != Vector2Int.zero)
+            {
+                _movementIndicator.gameObject.SetActive(true);
+                _movementIndicator.rotation =
+                    Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, nextMoveDirection));
             }
         }
     }

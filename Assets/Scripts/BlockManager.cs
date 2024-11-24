@@ -53,71 +53,78 @@ namespace Sokabon
 
         public bool PlayerTryMove(Block playerBlock, Vector2Int direction)
         {
-            var isMoveSuccessful = TryMove(playerBlock, direction);
+            var isMoveSuccessful = TrySetNextMoveDirection(playerBlock, direction);
             if (!isMoveSuccessful)
             {
                 return false;
             }
-            
+
+            if (direction == Vector2Int.zero)
+            {
+                turnManager.ExecuteCommand(new PlayerNoOp());
+            }
+
+            if (playerBlock.nextMoveDirection != Vector2Int.zero)
+            {
+                turnManager.ExecuteCommand(new Move(playerBlock, playerBlock.nextMoveDirection,
+                    direction != Vector2Int.zero));
+            }
+
+            // Tick the blocks on player move
             foreach (var block in _blocks)
             {
-                if (block.IsAnimating)
+                if (block == playerBlock)
                 {
                     continue;
                 }
-
-                // tick inertia blocks
-                if (block.isAffectedByInertia)
+                if (block.IsAnimating)
                 {
-                    if (block.previousMoveDirection != Vector2Int.zero && block.IsDirectionFree(block.previousMoveDirection))
-                    {
-                        turnManager.ExecuteCommand(new Move(block, block.previousMoveDirection, false));
-                        continue;
-                    }
-                    
-                    // Reset inertia direction if it's blocked
-                    // It can then be affected by gravity, so we don't continue here
-                    turnManager.ExecuteCommand(new ResetInertiaDirection(block));
+                    Debug.LogWarning("Block is still animating, skipping this tick.", block);
+                    continue;
                 }
-                
-                // tick gravity blocks
-                if (block.isAffectedByGravity && GravityDirection != Vector2Int.zero && block.IsDirectionFree(GravityDirection))
+
+                if (block.nextMoveDirection != Vector2Int.zero)
                 {
-                    turnManager.ExecuteCommand(new Move(block, GravityDirection, false));
+                    turnManager.ExecuteCommand(new Move(block, block.nextMoveDirection, false));
                 }
             }
 
             return true;
         }
 
-        private bool TryMove(Block playerBlock, Vector2Int direction)
+        public void UpdateBlocksNextMoveDirection()
+        {
+            foreach (var block in _blocks)
+            {
+                block.UpdateNextMoveDirection();
+            }
+        }
+
+        private static bool TrySetNextMoveDirection(Block playerBlock, Vector2Int direction)
         {
             if (direction == Vector2Int.zero)
             {
-                turnManager.ExecuteCommand(new PlayerNoOp());
                 return true;
             }
 
-            if ((GravityDirection != Vector2Int.zero && playerBlock.isAffectedByGravity &&
-                 (GravityDirection + direction == Vector2Int.zero || playerBlock.IsDirectionFree(GravityDirection))) || 
-                playerBlock.isAffectedByInertia && playerBlock.previousMoveDirection != Vector2Int.zero)
+            if (playerBlock.nextMoveDirection != Vector2Int.zero)
             {
                 return false;
             }
 
             if (playerBlock.IsDirectionFree(direction))
             {
-                turnManager.ExecuteCommand(new Move(playerBlock, direction, true));
+                playerBlock.nextMoveDirection = direction;
                 return true;
             }
 
             Block pushedBlock = playerBlock.BlockInDirection(direction);
-            if (pushedBlock != null && pushedBlock.IsDirectionFree(direction) &&
-                (pushedBlock.isAffectedByInertia && pushedBlock.previousMoveDirection == direction ||
-                 !pushedBlock.isAffectedByGravity || GravityDirection == Vector2Int.zero ||
-                 !pushedBlock.IsDirectionFree(GravityDirection)))
+            if (pushedBlock is not null && pushedBlock.IsDirectionFree(direction) &&
+                (pushedBlock.nextMoveDirection == Vector2Int.zero || pushedBlock.nextMoveDirection == direction ||
+                 pushedBlock.BlockInDirection(direction)?.nextMoveDirection == direction))
             {
-                turnManager.ExecuteCommand(new PushBlock(playerBlock, pushedBlock, direction));
+                playerBlock.nextMoveDirection = direction;
+                pushedBlock.nextMoveDirection = direction;
                 return true;
             }
 

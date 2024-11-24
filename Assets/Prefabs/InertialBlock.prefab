@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InertialBlock
       objectReference: {fileID: 0}
+    - target: {fileID: 5719915155057885651, guid: 7e072ebbbed55a545bc075d4226ef47f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8b9ce808616ee9c4a830370ddb417c70, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
