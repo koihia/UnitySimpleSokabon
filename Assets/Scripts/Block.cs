@@ -15,7 +15,7 @@ namespace Sokabon
         [SerializeField] private MovementSettings movementSettings;
 
         public Transform sprite;
-        private Rigidbody2D _rigidbody2D;
+        public Rigidbody2D rb;
         public bool IsAnimating => _animating; 
         private bool _animating;
         
@@ -40,13 +40,13 @@ namespace Sokabon
             {
                 Debug.LogError("SpriteRenderer not found in children of Block object.", gameObject);
             }
+            rb = GetComponent<Rigidbody2D>();
             
-            _rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
         public Vector2 GetPosInDir(Vector2Int direction)
         {
-            return _rigidbody2D.position + direction;
+            return rb.position + direction;
         }
 
         public void MoveInDirection(Vector2Int direction, bool instant, bool isReplay, Action onComplete)
@@ -55,7 +55,7 @@ namespace Sokabon
 
             if (instant)
             {
-                _rigidbody2D.position = destination;
+                rb.position = destination;
                 AtNewPositionEvent?.Invoke(isReplay);
                 onComplete?.Invoke();
             }
@@ -69,9 +69,9 @@ namespace Sokabon
         {
             _animating = true;
             
-            Vector3 start = _rigidbody2D.position;
+            Vector3 start = rb.position;
             sprite.position = start;
-            _rigidbody2D.position = destination;
+            rb.position = destination;
             
             float t = 0;
             while (t < 1)
@@ -96,7 +96,7 @@ namespace Sokabon
         public void Teleport(Vector3 destination, bool instant, bool isReplay, Action onComplete)
         {
             // TODO: Animate teleport
-            _rigidbody2D.position = destination;
+            rb.position = destination;
             AtNewPositionEvent?.Invoke(isReplay);
             onComplete?.Invoke();
         }

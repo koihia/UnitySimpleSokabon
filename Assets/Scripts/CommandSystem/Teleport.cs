@@ -13,7 +13,7 @@ namespace Sokabon.CommandSystem
         public Teleport(Block block, TriggerPortal destination)
         {
             _block = block;
-            _originalPosition = block.transform.position;
+            _originalPosition = block.rb.position;
             _destination = destination;
         }
 

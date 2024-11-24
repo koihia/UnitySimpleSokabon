@@ -21,6 +21,8 @@ namespace Sokabon.CommandSystem
         public override void Execute(System.Action onComplete)
         {
             _inventory.RemoveItemAt(_itemIndex);
+            // Note: Inventory is probably attached on a Block which has a Rigidbody2D component, so we might need to
+            // use rigidbody2D.position instead of transform.position
             _instantiatedItem = Object.Instantiate(_inventoryItemData.ItemPrefab, _inventory.transform.position, Quaternion.identity);
             
             onComplete?.Invoke();

@@ -36,7 +36,7 @@ namespace Sokabon.Trigger
         private void CheckForTrigger(bool isReplay)
         {
             // TODO: detect multiple triggers
-            Collider2D col = Physics2D.OverlapCircle(transform.position, 0.3f, layerSettings.triggerLayerMask);
+            Collider2D col = Physics2D.OverlapCircle(_block.rb.position, 0.3f, layerSettings.triggerLayerMask);
             Trigger nextTrigger = col?.GetComponent<Trigger>();
 
             if (_trigger != nextTrigger)

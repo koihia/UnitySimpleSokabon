@@ -68,7 +68,7 @@ namespace Sokabon
 			{
 				return;
 			}
-			Collider2D col = Physics2D.OverlapCircle(transform.position, 0.3f, layerSettings.blockLayerMask);
+			Collider2D col = Physics2D.OverlapCircle(_block.rb.position, 0.3f, layerSettings.blockLayerMask);
 			if (col?.GetComponent<Block>() != null)
 			{
 				IsDead = true;
