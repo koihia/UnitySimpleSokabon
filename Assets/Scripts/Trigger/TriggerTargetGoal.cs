@@ -1,4 +1,5 @@
-﻿using Sokabon.CommandSystem;
+﻿using System;
+using Sokabon.CommandSystem;
 using UnityEngine;
 
 namespace Sokabon.Trigger
@@ -11,10 +12,10 @@ namespace Sokabon.Trigger
         private Color _defaultColor;
         public bool AtGoal { get; set; }
 
-        protected override void Awake()
+        protected void Start()
         {
-            base.Awake();
-            _spriteRenderer = GetComponent<SpriteRenderer>();
+            // Block initialize the sprite renderer in Awake, so we need to get it here
+            _spriteRenderer = GetComponent<Block>().sprite.GetComponent<SpriteRenderer>();
             _defaultColor = _spriteRenderer.color;
         }
 

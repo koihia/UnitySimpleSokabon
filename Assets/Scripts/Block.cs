@@ -13,6 +13,9 @@ namespace Sokabon
         public Action BlockLanding;
         private BlockManager _blockManager;
         [SerializeField] private MovementSettings movementSettings;
+
+        public Transform sprite;
+        private Rigidbody2D _rigidbody2D;
         public bool IsAnimating => _animating; 
         private bool _animating;
         
@@ -31,20 +34,28 @@ namespace Sokabon
                     gameObject);
                 _blockManager = FindObjectOfType<BlockManager>();
             }
+            
+            sprite = transform.GetChild(0);
+            if (sprite is null)
+            {
+                Debug.LogError("SpriteRenderer not found in children of Block object.", gameObject);
+            }
+            
+            _rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
-        public Vector3 GetPosInDir(Vector2Int direction)
+        public Vector2 GetPosInDir(Vector2Int direction)
         {
-            return transform.position + new Vector3(direction.x, direction.y, 0);
+            return _rigidbody2D.position + direction;
         }
 
         public void MoveInDirection(Vector2Int direction, bool instant, bool isReplay, Action onComplete)
         {
-            Vector3 destination = GetPosInDir(direction);
+            var destination = GetPosInDir(direction);
 
             if (instant)
             {
-                transform.position = destination;
+                _rigidbody2D.position = destination;
                 AtNewPositionEvent?.Invoke(isReplay);
                 onComplete?.Invoke();
             }
@@ -54,19 +65,23 @@ namespace Sokabon
             }
         }
 
-        public IEnumerator AnimateMove(Vector2Int direction, Vector3 destination, bool isReplay, Action onComplete)
+        public IEnumerator AnimateMove(Vector2Int direction, Vector2 destination, bool isReplay, Action onComplete)
         {
             _animating = true;
-            Vector3 start = transform.position;
+            
+            Vector3 start = _rigidbody2D.position;
+            sprite.position = start;
+            _rigidbody2D.position = destination;
+            
             float t = 0;
             while (t < 1)
             {
                 t = t + Time.deltaTime/movementSettings.timeToMove;
-                transform.position = Vector3.Lerp(start, destination, movementSettings.movementCurve.Evaluate(t));
+                sprite.position = Vector3.Lerp(start, destination, movementSettings.movementCurve.Evaluate(t));
                 yield return null;
             }
 
-            transform.position = destination;
+            sprite.position = destination;
             AtNewPositionEvent?.Invoke(isReplay);
             onComplete?.Invoke();
             _animating = false;
@@ -81,14 +96,14 @@ namespace Sokabon
         public void Teleport(Vector3 destination, bool instant, bool isReplay, Action onComplete)
         {
             // TODO: Animate teleport
-            transform.position = destination;
+            _rigidbody2D.position = destination;
             AtNewPositionEvent?.Invoke(isReplay);
             onComplete?.Invoke();
         }
 
         public bool IsDirectionFree(Vector2Int direction)
         {
-            Vector3 position = GetPosInDir(direction);
+            var position = GetPosInDir(direction);
             //the ^ combines the two bitmaps with an OR (the pipe symbol) bitwise operation. 0011 and 0110 becomes 0111. 
             //It means we are checking for blocks AND solid stuff, and have the flexibility to differentiate.
             Collider2D col2D = Physics2D.OverlapCircle(position, 0.3f, layerSettings.solidLayerMask | layerSettings.blockLayerMask);
@@ -97,7 +112,7 @@ namespace Sokabon
 
         public Block BlockInDirection(Vector2Int direction)
         {
-            Vector3 position = GetPosInDir(direction);
+            var position = GetPosInDir(direction);
             Collider2D col2D = Physics2D.OverlapCircle(position, 0.3f, layerSettings.blockLayerMask);
             if (col2D != null)
             {
