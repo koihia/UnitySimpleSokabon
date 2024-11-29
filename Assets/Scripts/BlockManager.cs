@@ -100,14 +100,14 @@ namespace Sokabon
             }
         }
 
-        private static bool TrySetNextMoveDirection(Block playerBlock, Vector2Int direction)
+        private bool TrySetNextMoveDirection(Block playerBlock, Vector2Int direction)
         {
             if (direction == Vector2Int.zero)
             {
                 return true;
             }
 
-            if (playerBlock.nextMoveDirection != Vector2Int.zero)
+            if (playerBlock.nextMoveDirection != Vector2Int.zero || GravityDirection + direction == Vector2Int.zero)
             {
                 return false;
             }
