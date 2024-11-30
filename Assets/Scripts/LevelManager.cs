@@ -2,59 +2,69 @@ using Sokabon;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private Animator transition;
-    public string nextLevel;
-    public static int CurrentLevelIndex => SceneManager.GetActiveScene().buildIndex;
-
-    private SoundManager soundManager;
-
+    [SerializeField] private LevelData levelData;
+    public List<LevelMetaData> Levels { get; } = new();
+    private int _currentLevelIndex;
+    
     private void Awake()
     {
-        soundManager = FindObjectOfType<SoundManager>();
+        var section = 0;
+        var levelInSection = 0;
+        foreach (var level in levelData.levels)
+        {
+            if (level.sceneName == "SEPARATOR")
+            {
+                section++;
+                levelInSection = 0;
+                continue;
+            }
+
+            Levels.Add(new LevelMetaData
+            {
+                LevelName = level.levelName,
+                LevelNumber = $"{section + 1}-{levelInSection + 1}",
+                SceneName = level.sceneName
+            });
+            
+            if (level.sceneName == SceneManager.GetActiveScene().name)
+            {
+                _currentLevelIndex = Levels.Count - 1;
+            }
+
+            levelInSection++;
+        }
+    }
+    
+    public void LoadLevel(LevelMetaData levelMetaData)
+    {
+        LoadScene(levelMetaData.SceneName);
     }
 
+    private void LoadScene(string sceneName)
+    {
+        StartCoroutine(LoadSceneHelper(sceneName));
+    }
+
+    private IEnumerator LoadSceneHelper(string sceneName)
+    {
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene(sceneName);
+    }
+    
     public void RestartLevel()
     {
-        GoToLevel(SceneManager.GetActiveScene().buildIndex);
+        LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void GoToNextScene()
     {
-        //Get the current level build Index
-        int current = SceneManager.GetActiveScene().buildIndex;
-        
-        //increase it by one
-        int next = current + 1;
-        int total = SceneManager.sceneCountInBuildSettings;
-        
-        //If we are at the end of our list, just go back to the first level in the list.
-        if (next >= total)
-        {
-            next = 0;
-        }
-
-        //go to build index
-        GoToLevel(next);
-    }
-    
-    public void GoToLevel(int level)
-    {
-        LoadScene(level);
-    }
-    
-    private void LoadScene(int sceneBuildIndex)
-    {
-        StartCoroutine(LoadSceneHelper(sceneBuildIndex));
-    }
-
-    private IEnumerator LoadSceneHelper(int sceneBuildIndex)
-    {
-        transition.SetTrigger("Start");
-        yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene(sceneBuildIndex);
+        LoadScene(Levels[(_currentLevelIndex + 1) % Levels.Count].SceneName);
     }
 
     public void GoToMenu()
@@ -74,4 +84,12 @@ public class LevelManager : MonoBehaviour
             GoToNextScene();
         }
     }
+}
+
+public class LevelMetaData
+{
+    public string LevelName;
+    public string LevelNumber;
+    
+    public string SceneName;
 }

@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 337b988a96794f6696984df5c0684647, type: 3}
+  m_Name: LevelData
+  m_EditorClassIdentifier: 
+  levels:
+  - sceneName: Level3
+    levelName: 
+  - sceneName: Level1
+    levelName: 
+  - sceneName: SEPARATOR
+    levelName: 
+  - sceneName: Level2
+    levelName: 
+  - sceneName: Level4
+    levelName: 
+  - sceneName: Level5
+    levelName: 
+  - sceneName: SEPARATOR
+    levelName: 
+  - sceneName: Level7
+    levelName: 
+  - sceneName: Level8
+    levelName: 
+  - sceneName: Level9
+    levelName: 
+  - sceneName: Level10
+    levelName: 
+  - sceneName: SEPARATOR
+    levelName: 
+  - sceneName: Level13
+    levelName: 
+  - sceneName: SEPARATOR
+    levelName: 
+  - sceneName: Level11
+    levelName: 
+  - sceneName: Level6
+    levelName: 

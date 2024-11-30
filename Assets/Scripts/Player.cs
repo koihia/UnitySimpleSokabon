@@ -85,15 +85,12 @@ namespace Sokabon
 
 		private void CheckForDeath(bool isReplay)
 		{
-			if (isReplay)
+			if (isReplay && !IsDead)
 			{
 				return;
 			}
 			Collider2D col = Physics2D.OverlapCircle(_block.rb.position, 0.3f, layerSettings.blockLayerMask);
-			if (col?.GetComponent<Block>() != null)
-			{
-				IsDead = true;
-			}
+			IsDead = col?.GetComponent<Block>() != null;
 		}
 
 		protected override void OnEnterEvent()

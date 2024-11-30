@@ -10,19 +10,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1066786801705353148, guid: aaa8397070fa42c42909853ab311c464, type: 3}
       propertyPath: m_Name
-      value: Player Goal Variant
+      value: Goal Player
       objectReference: {fileID: 0}
     - target: {fileID: 1066786801705353149, guid: aaa8397070fa42c42909853ab311c464, type: 3}
       propertyPath: m_Color.b
-      value: 0.45098042
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1066786801705353149, guid: aaa8397070fa42c42909853ab311c464, type: 3}
       propertyPath: m_Color.g
-      value: 0.427451
+      value: 0.6784314
       objectReference: {fileID: 0}
     - target: {fileID: 1066786801705353149, guid: aaa8397070fa42c42909853ab311c464, type: 3}
       propertyPath: m_Color.r
-      value: 0.18431373
+      value: 0.47058824
       objectReference: {fileID: 0}
     - target: {fileID: 1066786801705353150, guid: aaa8397070fa42c42909853ab311c464, type: 3}
       propertyPath: m_LocalPosition.x

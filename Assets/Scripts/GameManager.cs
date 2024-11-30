@@ -79,11 +79,16 @@ public class GameManager : MonoBehaviour
 
     private void CheckForLose()
     {
-        if (_player.IsDead)
+        if (machine.IsCurrentState(gameplayState) && _player.IsDead)
         {
             Debug.Log("We lose!");
             _timer.Stop();
             machine.SetCurrentState(loseState);
+        }
+        else if (machine.IsCurrentState(loseState) && !_player.IsDead)
+        {
+            _timer.Unpause();
+            machine.SetCurrentState(gameplayState);
         }
     }
 
