@@ -14,12 +14,18 @@ namespace Sokabon.StateMachine
 		private State defaultState;
 		public void Init()
 		{
-			// _currentState = null;//dont call exit on previously used state?
+			_currentState = null;
 			SetCurrentState(defaultState);
 		}
 
 		public void SetCurrentState(State newState)
 		{
+			if (IsCurrentState(newState))
+			{
+				return;
+			}
+			
+			Debug.Log($"Switching state from {_currentState} to {newState}");
 			if (_currentState != null)
 			{
 				_currentState.OnExit();
