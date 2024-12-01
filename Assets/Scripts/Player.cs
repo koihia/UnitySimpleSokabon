@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Sokabon.Audio;
 using Sokabon.CommandSystem;
 using Sokabon.InventorySystem;
 using Sokabon.StateMachine;
@@ -19,6 +20,11 @@ namespace Sokabon
 
 		[SerializeField] private TurnManager _turnManager;
 		[SerializeField] private BlockManager blockManager;
+		[SerializeField] private SfxManager sfxManager;
+		
+		[SerializeField] private AudioClip[] validInputSounds;
+		[SerializeField] private AudioClip[] invalidInputSounds;
+
 		private bool _canMove = true;
 		public bool IsDead { get; private set; }
 		
@@ -59,6 +65,14 @@ namespace Sokabon
 					"Player object needs BlockManager set, or BlockManager not found in scene. Searching for one.",
 					gameObject);
 				blockManager = FindObjectOfType<BlockManager>();
+			}
+			
+			if (sfxManager == null)
+			{
+				Debug.LogWarning(
+					"Player object needs SfxManager set, or SfxManager not found in scene. Searching for one.",
+					gameObject);
+				sfxManager = FindObjectOfType<SfxManager>();
 			}
 		}
 
@@ -133,7 +147,11 @@ namespace Sokabon
 			}
 			else if (Input.GetKeyDown(KeyCode.Z))
 			{
-				_turnManager.Undo();
+				_actionQueue.Enqueue(() =>
+				{
+					_turnManager.Undo();
+					return true;
+				});
 			}
 			else if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || 
 			                      Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Alpha4) || 
@@ -154,7 +172,12 @@ namespace Sokabon
 				var action = _actionQueue.Dequeue();
 				if (!action())
 				{
+					sfxManager.PlayRandom(invalidInputSounds);
 					_actionQueue.Clear();
+				}
+				else
+				{
+					sfxManager.PlayRandom(validInputSounds);
 				}
 			}
 			

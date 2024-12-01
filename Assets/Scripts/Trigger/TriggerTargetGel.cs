@@ -1,9 +1,13 @@
 ﻿using Sokabon.CommandSystem;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Sokabon.Trigger
 {
     public class TriggerTargetGel : TriggerTarget
     {
+        [SerializeField] private AudioClip[] onGelSounds;
+
         private Block _block;
         
         protected override void Awake()
@@ -20,6 +24,7 @@ namespace Sokabon.Trigger
             }
 
             _turnManager.ExecuteCommand(new ChangeIsAffectedByGravity(_block, false));
+            _SfxManager?.PlayRandom(onGelSounds);
         }
         
         protected override void OnSokabonTriggerExit(Trigger trigger)

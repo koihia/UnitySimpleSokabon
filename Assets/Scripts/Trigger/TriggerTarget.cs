@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Sokabon.Audio;
+using UnityEngine;
 
 namespace Sokabon.Trigger
 {
@@ -6,13 +7,12 @@ namespace Sokabon.Trigger
     {
         TriggerDetector _triggerDetector;
         protected TurnManager _turnManager;
-        protected SoundManager _soundManager;
+        protected SfxManager _SfxManager;
         
         protected virtual void Awake()
         {
             _triggerDetector = GetComponent<TriggerDetector>();
             _turnManager = FindObjectOfType<TurnManager>();
-            _soundManager = FindObjectOfType<SoundManager>();
         }
 
         private void OnEnable()

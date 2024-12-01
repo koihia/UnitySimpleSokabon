@@ -1,12 +1,14 @@
 ﻿using System;
 using Sokabon.CommandSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Sokabon.Trigger
 {
     public class TriggerTargetGoal : TriggerTarget
     {
         [field: SerializeField] public TriggerGoalType GoalType { get; private set; }
+        [SerializeField] private AudioClip[] goalSounds;
 
         private SpriteRenderer _spriteRenderer;
         private Color _defaultColor;
@@ -28,7 +30,7 @@ namespace Sokabon.Trigger
             }
             
             _turnManager.ExecuteCommand(new ChangeAtGoal(true, this, _spriteRenderer, _defaultColor));
-            _soundManager?.PlayOnGoalSound();
+            _SfxManager?.PlayRandom(goalSounds);
         }
 
         protected override void OnSokabonTriggerExit(Trigger trigger)

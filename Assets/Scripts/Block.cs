@@ -10,7 +10,6 @@ namespace Sokabon
     public class Block : MonoBehaviour
     {
         public Action<bool> AtNewPositionEvent;
-        public Action BlockLanding;
         private BlockManager _blockManager;
         [SerializeField] private MovementSettings movementSettings;
 
@@ -71,11 +70,11 @@ namespace Sokabon
             }
             else
             {
-                StartCoroutine(AnimateMove(direction, destination, isReplay, onComplete));
+                StartCoroutine(AnimateMove(destination, isReplay, onComplete));
             }
         }
 
-        public IEnumerator AnimateMove(Vector2Int direction, Vector2 destination, bool isReplay, Action onComplete)
+        public IEnumerator AnimateMove(Vector2 destination, bool isReplay, Action onComplete)
         {
             _animating = true;
             
@@ -95,12 +94,6 @@ namespace Sokabon
             AtNewPositionEvent?.Invoke(isReplay);
             onComplete?.Invoke();
             _animating = false;
-
-            if (GetComponent<Player>() == null && _blockManager.GravityDirection == direction &&
-                !IsDirectionFree(direction))
-            {
-                BlockLanding?.Invoke();
-            }
         }
 
         public void Teleport(Vector3 destination, bool instant, bool isReplay, Action onComplete)

@@ -1,10 +1,13 @@
 ﻿using Sokabon.CommandSystem;
 using Sokabon.InventorySystem;
+using UnityEngine;
 
 namespace Sokabon.Trigger
 {
     public class TriggerTargetLootItem : TriggerTarget
     {
+        [SerializeField] private AudioClip[] pickUpLootItemSounds;
+
         private Inventory _inventory;
 
         protected override void Awake()
@@ -22,6 +25,7 @@ namespace Sokabon.Trigger
             }
 
             _turnManager.ExecuteCommand(new PickUpLootItem(_inventory, triggerLootItem));
+            _SfxManager?.PlayRandom(pickUpLootItemSounds);
         }
 
         protected override void OnSokabonTriggerExit(Trigger trigger)

@@ -365,6 +365,12 @@ MonoBehaviour:
   layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}
   _turnManager: {fileID: 0}
   blockManager: {fileID: 0}
+  sfxManager: {fileID: 0}
+  validInputSounds:
+  - {fileID: 8300000, guid: 59025eb6d1ecedc408d4e01954d07301, type: 3}
+  - {fileID: 8300000, guid: f3866a591b6baac498ac1f10d547c884, type: 3}
+  invalidInputSounds:
+  - {fileID: 8300000, guid: ffed166fffc817e408cfaf5d7e3d915a, type: 3}
 --- !u!114 &4037585411893826639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,6 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be57a68bdca46198876145f7fbae3ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerGravitySounds: []
 --- !u!114 &6967535708933648910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,6 +410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <GoalType>k__BackingField: {fileID: 11400000, guid: 2bee78ce9d99f904aa89395a58a63a95, type: 2}
+  goalSounds: []
 --- !u!114 &1126049433005193829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,6 +423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1a587c3b4364ea781b2976b912f028a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onGelSounds: []
 --- !u!114 &847066510641346071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,6 +449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad015c15d4248b18d248b1aadd1c4ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickUpLootItemSounds: []
 --- !u!114 &4478348323326896841
 MonoBehaviour:
   m_ObjectHideFlags: 0

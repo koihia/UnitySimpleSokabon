@@ -5,6 +5,7 @@ namespace Sokabon.Trigger
 {
     public class TriggerTargetGravity : TriggerTarget
     {
+        [SerializeField] private AudioClip[] triggerGravitySounds;
         private BlockManager _blockManager;
 
         protected override void Awake()
@@ -28,7 +29,7 @@ namespace Sokabon.Trigger
             }
             
             _turnManager.ExecuteCommand(new ChangeGravity(_blockManager, triggerGravity.GravityDirection));
-            _soundManager?.PlayTriggerGravitySound();
+            _SfxManager?.PlayRandom(triggerGravitySounds);
         }
 
         protected override void OnSokabonTriggerExit(Trigger trigger)
