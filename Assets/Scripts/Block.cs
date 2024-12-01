@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Sokabon.CommandSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Sokabon
 {
@@ -16,8 +18,6 @@ namespace Sokabon
         public Transform sprite;
         private Transform _movementIndicator;
         public Rigidbody2D rb;
-        public bool IsAnimating => _animating; 
-        private bool _animating;
 
         public bool isAffectedByGravity;
         public bool isAffectedByInertia = false;
@@ -36,13 +36,7 @@ namespace Sokabon
                 _blockManager = FindObjectOfType<BlockManager>();
             }
 
-            sprite = transform.Find("Sprite");
-            if (sprite is null)
-            {
-                Debug.LogError("SpriteRenderer not found in children of Block object.", gameObject);
-            }
-
-            _movementIndicator = transform.Find("Sprite/Next Move Direction Indicator");
+            _movementIndicator = sprite.Find("Next Move Direction Indicator");
             if (_movementIndicator is null)
             {
                 Debug.LogError("Movement Indicator not found in children of Block object.", gameObject);
@@ -62,46 +56,52 @@ namespace Sokabon
             var destination = GetPosInDir(direction);
             previousMoveDirection = previousDirection ?? direction;
 
+            rb.position = destination;
+            
             if (instant)
             {
-                rb.position = destination;
+                sprite.position = destination;
                 AtNewPositionEvent?.Invoke(isReplay);
                 onComplete?.Invoke();
             }
             else
             {
-                StartCoroutine(AnimateMove(destination, isReplay, onComplete));
+                sprite.transform.DOMove(destination, movementSettings.timeToMove)
+                    .SetId("OnBoardMovement")
+                    .SetEase(Ease.OutBack, overshoot: 1.2f)
+                    .OnComplete(() =>
+                    {
+                        AtNewPositionEvent?.Invoke(isReplay);
+                        onComplete?.Invoke();
+                    });
             }
-        }
-
-        public IEnumerator AnimateMove(Vector2 destination, bool isReplay, Action onComplete)
-        {
-            _animating = true;
-            
-            Vector3 start = rb.position;
-            sprite.position = start;
-            rb.position = destination;
-            
-            float t = 0;
-            while (t < 1)
-            {
-                t = t + Time.deltaTime/movementSettings.timeToMove;
-                sprite.position = Vector3.Lerp(start, destination, movementSettings.movementCurve.Evaluate(t));
-                yield return null;
-            }
-
-            sprite.position = destination;
-            AtNewPositionEvent?.Invoke(isReplay);
-            onComplete?.Invoke();
-            _animating = false;
         }
 
         public void Teleport(Vector3 destination, bool instant, bool isReplay, Action onComplete)
         {
-            // TODO: Animate teleport
             rb.position = destination;
-            AtNewPositionEvent?.Invoke(isReplay);
-            onComplete?.Invoke();
+
+            if (instant)
+            {
+                sprite.position = destination;
+                AtNewPositionEvent?.Invoke(isReplay);
+                onComplete?.Invoke();
+            }
+            else
+            {
+                DOTween.Sequence()
+                    .SetId("OnBoardMovement")
+                    .Append(sprite.transform.DOScale(Vector3.zero, movementSettings.timeToMove)
+                        .SetEase(Ease.InBack))
+                    .Append(sprite.transform.DOMove(destination, 0))
+                    .Append(sprite.transform.DOScale(Vector3.one, movementSettings.timeToMove)
+                        .SetEase(Ease.OutBack))
+                    .OnComplete(() =>
+                    {
+                        AtNewPositionEvent?.Invoke(isReplay);
+                        onComplete?.Invoke();
+                    });
+            }
         }
 
         public bool IsDirectionFree(Vector2Int direction)

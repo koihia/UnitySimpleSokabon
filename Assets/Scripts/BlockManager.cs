@@ -53,21 +53,18 @@ namespace Sokabon
 
         public bool PlayerTryMove(Block playerBlock, Vector2Int direction)
         {
+            // We need to execute the PlayerNoOp command before calling TrySetNextMoveDirection because PlayerNoOp
+            // does not have an animation, and it calls AfterTurnExecutedEvent immediately, which invokes
+            // UpdateBlocksNextMoveDirection and sets the nextMoveDirection of the playerBlock and the pushed
+            // block to Vector2Int.zero.
+            // We execute the PlayerNoOp command no matter what because we want to tick the blocks on player move,
+            // even if the input is invalid.
+            turnManager.ExecuteCommand(new PlayerNoOp());
+
             var isMoveSuccessful = TrySetNextMoveDirection(playerBlock, direction);
-            if (!isMoveSuccessful)
-            {
-                return false;
-            }
-
-            if (direction == Vector2Int.zero)
-            {
-                turnManager.ExecuteCommand(new PlayerNoOp());
-            }
-
             if (playerBlock.nextMoveDirection != Vector2Int.zero)
             {
-                turnManager.ExecuteCommand(new Move(playerBlock, playerBlock.nextMoveDirection,
-                    direction != Vector2Int.zero));
+                turnManager.ExecuteCommand(new Move(playerBlock, playerBlock.nextMoveDirection, false));
             }
 
             // Tick the blocks on player move
@@ -77,11 +74,6 @@ namespace Sokabon
                 {
                     continue;
                 }
-                if (block.IsAnimating)
-                {
-                    Debug.LogWarning("Block is still animating, skipping this tick.", block);
-                    continue;
-                }
 
                 if (block.nextMoveDirection != Vector2Int.zero)
                 {
@@ -89,7 +81,7 @@ namespace Sokabon
                 }
             }
 
-            return true;
+            return isMoveSuccessful;
         }
 
         public void UpdateBlocksNextMoveDirection()

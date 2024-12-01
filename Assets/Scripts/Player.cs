@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using DG.Tweening;
 using Sokabon.Audio;
 using Sokabon.CommandSystem;
 using Sokabon.InventorySystem;
@@ -167,12 +168,17 @@ namespace Sokabon
                 _actionQueue.Enqueue(() => TryPutItem(itemIndex));
             }
 
-			if (!_block.IsAnimating && _actionQueue.Count > 0)
+			if (!DOTween.IsTweening("OnBoardMovement") && _actionQueue.Count > 0)
 			{
 				var action = _actionQueue.Dequeue();
 				if (!action())
 				{
 					sfxManager.PlayRandom(invalidInputSounds);
+					if (!DOTween.IsTweening(_block.sprite.transform))
+					{
+						_block.sprite.transform.DOShakePosition(0.15f, 0.1f);
+					}
+					
 					_actionQueue.Clear();
 				}
 				else

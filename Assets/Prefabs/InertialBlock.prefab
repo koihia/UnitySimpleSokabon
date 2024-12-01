@@ -92,6 +92,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 924545924933605041, guid: 7e072ebbbed55a545bc075d4226ef47f, type: 3}
+      propertyPath: isAffectedByInertia
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2061713023274705103, guid: 7e072ebbbed55a545bc075d4226ef47f, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.8
