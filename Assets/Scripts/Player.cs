@@ -126,7 +126,9 @@ namespace Sokabon
 			}
 
 			//Todo: Joystick support. Switch to new input system.
-			if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+			if (_actionQueue.Count() >= 2)
+			{}
+			else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
 			{
 				_actionQueue.Enqueue(() => blockManager.PlayerTryMove(_block, Vector2Int.up));
 			}
