@@ -259,6 +259,7 @@ GameObject:
   - component: {fileID: 7044423016955929574}
   - component: {fileID: 2083785406723815955}
   - component: {fileID: 924545924933605041}
+  - component: {fileID: 873866327413235145}
   - component: {fileID: 1054622283809692740}
   - component: {fileID: 1144395177863117898}
   - component: {fileID: 4873496781131240844}
@@ -376,6 +377,19 @@ MonoBehaviour:
   isAffectedByInertia: 0
   previousMoveDirection: {x: 0, y: 0}
   nextMoveDirection: {x: 0, y: 0}
+  layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}
+--- !u!114 &873866327413235145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6513880289042224419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11ea929d3284442c9d06cd0e74b381e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   layerSettings: {fileID: 11400000, guid: 418c560d4fc8a744393e59e16ae3d599, type: 2}
 --- !u!114 &1054622283809692740
 MonoBehaviour:

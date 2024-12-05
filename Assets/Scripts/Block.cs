@@ -104,6 +104,38 @@ namespace Sokabon
             }
         }
 
+        public void SetEnabled(bool isEnabled, bool instant, Action onComplete)
+        {
+            rb.gameObject.SetActive(isEnabled);
+
+            if (instant)
+            {
+                sprite.gameObject.SetActive(isEnabled);
+                sprite.localScale = isEnabled ? Vector3.one : Vector3.zero;
+                onComplete?.Invoke();
+            }
+            else if (isEnabled)
+            {
+                sprite.gameObject.SetActive(true);
+                sprite.localScale = Vector3.zero;
+                sprite.DOScale(Vector3.one, movementSettings.timeToMove)
+                    .SetId("OnBoardMovement")
+                    .SetEase(Ease.OutBack)
+                    .OnComplete(() => onComplete?.Invoke());
+            }
+            else
+            {
+                sprite.DOScale(Vector3.zero, movementSettings.timeToMove)
+                    .SetId("OnBoardMovement")
+                    .SetEase(Ease.InBack)
+                    .OnComplete(() =>
+                    {
+                        sprite.gameObject.SetActive(false);
+                        onComplete?.Invoke();
+                    });
+            }
+        }
+
         public bool IsDirectionFree(Vector2Int direction)
         {
             var position = GetPosInDir(direction);
