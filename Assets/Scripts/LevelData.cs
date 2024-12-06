@@ -6,13 +6,15 @@ namespace Sokabon
     [CreateAssetMenu(fileName = "LevelData", menuName = "Sokabon/Level Data")]
     public class LevelData : ScriptableObject
     {
-        public List<LevelDataEntry> levels;
+        public List<Level> levels;
     }
     
     [System.Serializable]
-    public class LevelDataEntry
+    public class Level
     {
         public string sceneName;
         public string levelName;
+
+        [HideInInspector] public string levelNumber;
     }
 }

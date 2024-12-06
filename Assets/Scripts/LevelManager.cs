@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] private Animator transition;
     [SerializeField] private LevelData levelData;
-    public List<LevelMetaData> Levels { get; } = new();
+    public List<Level> Levels { get; } = new();
     private int _currentLevelIndex;
     
     private void Awake()
@@ -24,12 +24,8 @@ public class LevelManager : MonoBehaviour
                 continue;
             }
 
-            Levels.Add(new LevelMetaData
-            {
-                LevelName = level.levelName,
-                LevelNumber = $"{section + 1}-{levelInSection + 1}",
-                SceneName = level.sceneName
-            });
+            level.levelNumber = $"{section + 1}-{levelInSection + 1}";
+            Levels.Add(level);
             
             if (level.sceneName == SceneManager.GetActiveScene().name)
             {
@@ -40,9 +36,9 @@ public class LevelManager : MonoBehaviour
         }
     }
     
-    public void LoadLevel(LevelMetaData levelMetaData)
+    public void LoadLevel(Level level)
     {
-        LoadScene(levelMetaData.SceneName);
+        LoadScene(level.sceneName);
     }
 
     private void LoadScene(string sceneName)
@@ -64,7 +60,7 @@ public class LevelManager : MonoBehaviour
 
     public void GoToNextScene()
     {
-        LoadScene(Levels[(_currentLevelIndex + 1) % Levels.Count].SceneName);
+        LoadScene(Levels[(_currentLevelIndex + 1) % Levels.Count].sceneName);
     }
 
     public void GoToMenu()
@@ -84,12 +80,4 @@ public class LevelManager : MonoBehaviour
             GoToNextScene();
         }
     }
-}
-
-public class LevelMetaData
-{
-    public string LevelName;
-    public string LevelNumber;
-    
-    public string SceneName;
 }

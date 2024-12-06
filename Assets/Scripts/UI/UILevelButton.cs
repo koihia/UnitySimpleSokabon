@@ -7,18 +7,18 @@ namespace Sokabon.UI
     {
         public LevelManager levelManager;
         public TextMeshProUGUI levelNumberText;
-        private LevelMetaData _levelMetaData;
+        private Level _level;
         
-        public void SetLevel(LevelManager levelMgr, LevelMetaData levelMetaData)
+        public void SetLevel(LevelManager levelMgr, Level level)
         {
             levelManager = levelMgr;
-            levelNumberText.text = levelMetaData.LevelNumber;
-            _levelMetaData = levelMetaData;
+            levelNumberText.text = level.levelNumber;
+            _level = level;
         }
         
         public void OnClick()
         {
-            levelManager.LoadLevel(_levelMetaData);
+            levelManager.LoadLevel(_level);
         }
     }
 }

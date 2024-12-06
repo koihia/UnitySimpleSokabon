@@ -23,7 +23,7 @@ namespace Sokabon.UI
             var prevSection = "-1";
             foreach (var level in levelManager.Levels)
             {
-                var section = level.LevelNumber.Split('-')[0];
+                var section = level.levelNumber.Split('-')[0];
                 if (section != prevSection)
                 {
                     prevSection = section;
