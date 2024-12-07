@@ -41,8 +41,8 @@ namespace Sokabon.UI
                     window.gameObject.SetActive(true);
                     window.anchoredPosition = new Vector2(0, -Screen.height);
                 })
-                .Append(background.DOFade(0.5f, animationDuration).SetEase(Ease.OutExpo))
-                .Join(window.DOAnchorPosY(0, animationDuration).SetEase(Ease.OutBack, overshoot: 1.2f))
+                .Append(background.DOFade(0.5f, animationDuration).SetEase(Ease.OutQuint))
+                .Join(window.DOAnchorPosY(0, animationDuration).SetEase(Ease.OutQuint))
                 .AppendCallback(() => OnOpenAnimEnd?.Invoke());
         }
 
@@ -53,8 +53,8 @@ namespace Sokabon.UI
                 _sequence.Kill();
             }
             _sequence = DOTween.Sequence();
-            _sequence.Append(background.DOFade(0f, animationDuration).SetEase(Ease.InExpo))
-                .Join(window.DOAnchorPosY(-Screen.height, animationDuration).SetEase(Ease.InBack, overshoot: 1.2f))
+            _sequence.Append(background.DOFade(0f, animationDuration).SetEase(Ease.InQuint))
+                .Join(window.DOAnchorPosY(-Screen.height, animationDuration).SetEase(Ease.InQuint))
                 .AppendCallback(() =>
                 {
                     background.gameObject.SetActive(false);
