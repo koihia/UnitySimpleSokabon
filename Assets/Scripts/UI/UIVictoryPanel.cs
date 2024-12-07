@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using Sokabon.Audio;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,8 @@ namespace Sokabon.UI
     {
         [SerializeField] private LevelManager levelManager;
         [SerializeField] private TurnManager turnManager;
+        [SerializeField] private SfxManager sfxManager;
+        
         [SerializeField] private UIOverlay uiOverlay;
         [SerializeField] private TextMeshProUGUI movesText;
         [SerializeField] private TextMeshProUGUI bestMovesText;
@@ -16,12 +19,15 @@ namespace Sokabon.UI
         [SerializeField] private Image star1;
         [SerializeField] private Image star2;
         [SerializeField] private Image star3;
+        
+        [SerializeField] private AudioClip victorySound;
 
         private void Awake()
         {
             levelManager ??= FindObjectOfType<LevelManager>();
             uiOverlay ??= GetComponent<UIOverlay>();
             turnManager ??= FindObjectOfType<TurnManager>();
+            sfxManager ??= FindObjectOfType<SfxManager>();
             
             star1.rectTransform.localScale = Vector3.zero;
             star2.rectTransform.localScale = Vector3.zero;
@@ -47,6 +53,8 @@ namespace Sokabon.UI
             
             movesText.text = $"Moves: {turnManager.TurnCount}";
             bestMovesText.text = $"Your best: {GameDataManager.GetBestMoves(levelManager.CurrentLevel)}";
+            
+            sfxManager?.Play(victorySound);
         }
 
         private void ShowStars()
