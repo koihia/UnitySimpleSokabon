@@ -217,8 +217,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Your Best: 7'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 08d1aa77bebdcdc4a8dfcb332bb5d30d, type: 2}
+  m_sharedMaterial: {fileID: 2067517689487485757, guid: 08d1aa77bebdcdc4a8dfcb332bb5d30d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -499,8 +499,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Moves: 10'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 08d1aa77bebdcdc4a8dfcb332bb5d30d, type: 2}
+  m_sharedMaterial: {fileID: 2067517689487485757, guid: 08d1aa77bebdcdc4a8dfcb332bb5d30d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1407,8 +1407,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: G
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 08d1aa77bebdcdc4a8dfcb332bb5d30d, type: 2}
+  m_sharedMaterial: {fileID: 2067517689487485757, guid: 08d1aa77bebdcdc4a8dfcb332bb5d30d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1541,8 +1541,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Level Complete
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 08d1aa77bebdcdc4a8dfcb332bb5d30d, type: 2}
+  m_sharedMaterial: {fileID: 2067517689487485757, guid: 08d1aa77bebdcdc4a8dfcb332bb5d30d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1871,8 +1871,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: You are crushed by a box.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 08d1aa77bebdcdc4a8dfcb332bb5d30d, type: 2}
+  m_sharedMaterial: {fileID: 2067517689487485757, guid: 08d1aa77bebdcdc4a8dfcb332bb5d30d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2052,8 +2052,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 08d1aa77bebdcdc4a8dfcb332bb5d30d, type: 2}
+  m_sharedMaterial: {fileID: 2067517689487485757, guid: 08d1aa77bebdcdc4a8dfcb332bb5d30d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2274,8 +2274,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: You Died
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 08d1aa77bebdcdc4a8dfcb332bb5d30d, type: 2}
+  m_sharedMaterial: {fileID: 2067517689487485757, guid: 08d1aa77bebdcdc4a8dfcb332bb5d30d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
