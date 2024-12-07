@@ -20,6 +20,7 @@ namespace Sokabon
         private Inventory _inventory;
 
 		[SerializeField] private TurnManager _turnManager;
+		[SerializeField] private GameManager gameManager;
 		[SerializeField] private BlockManager blockManager;
 		[SerializeField] private SfxManager sfxManager;
 		
@@ -58,6 +59,14 @@ namespace Sokabon
 			{
 				Debug.LogWarning("Player object needs TurnManager set, or TurnManager not found in scene. Searching for one.",gameObject);
 				_turnManager = GameObject.FindObjectOfType<TurnManager>();
+			}
+			
+			if (gameManager == null)
+			{
+				Debug.LogWarning(
+					"Player object needs GameManager set, or GameManager not found in scene. Searching for one.",
+					gameObject);
+				gameManager = FindObjectOfType<GameManager>();
 			}
 
 			if (blockManager == null)
@@ -126,7 +135,16 @@ namespace Sokabon
 			}
 
 			//Todo: Joystick support. Switch to new input system.
-			if (_actionQueue.Count() >= 2)
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				_actionQueue.Clear();
+				_actionQueue.Enqueue(() =>
+				{
+					gameManager.Pause();
+					return true;
+				});
+			}
+			else if (_actionQueue.Count() >= 2)
 			{}
 			else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
 			{
