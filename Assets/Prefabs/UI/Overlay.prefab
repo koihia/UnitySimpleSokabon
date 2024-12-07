@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 3740706573239992820}
   - component: {fileID: 8984033373086510540}
   - component: {fileID: 2403590991845356270}
-  - component: {fileID: 3426952203478968314}
+  - component: {fileID: 7625040917397114793}
   m_Layer: 5
   m_Name: Overlay
   m_TagString: Untagged
@@ -213,27 +213,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: 0, y: 0, z: 0, w: 0}
   m_Softness: {x: 0, y: 0}
---- !u!95 &3426952203478968314
-Animator:
-  serializedVersion: 5
+--- !u!114 &7625040917397114793
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5234243895228985286}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5b9f36529e49ef04796a59a7ca0db338, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d21e812cce523b418d74c8dd3bba232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  background: {fileID: 140978919357910203}
+  window: {fileID: 8016121372630620402}
+  animationDuration: 0.3
 --- !u!1001 &8637866360020055239
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -376,23 +370,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4248801380477899047, guid: 4a23256cc7cbff041b546cac6f4bbf0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4248801380477899047, guid: 4a23256cc7cbff041b546cac6f4bbf0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 3426952203478968314}
+      objectReference: {fileID: 7625040917397114793}
     - target: {fileID: 4248801380477899047, guid: 4a23256cc7cbff041b546cac6f4bbf0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4248801380477899047, guid: 4a23256cc7cbff041b546cac6f4bbf0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetTrigger
+      value: Close
       objectReference: {fileID: 0}
     - target: {fileID: 4248801380477899047, guid: 4a23256cc7cbff041b546cac6f4bbf0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UnityEngine.Animator, UnityEngine
+      value: Sokabon.UI.UIOverlay, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4248801380477899047, guid: 4a23256cc7cbff041b546cac6f4bbf0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument

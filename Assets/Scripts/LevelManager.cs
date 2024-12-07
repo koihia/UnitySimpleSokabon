@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Animator transition;
     [SerializeField] private LevelData levelData;
     public List<Level> Levels { get; } = new();
+    public Level CurrentLevel => Levels[_currentLevelIndex];
     private int _currentLevelIndex;
     
     private void Awake()
@@ -65,7 +66,7 @@ public class LevelManager : MonoBehaviour
 
     public void GoToMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        LoadScene("MainMenu");
     }
     
     void Update()

@@ -14,6 +14,7 @@ namespace Sokabon
     {
         public string sceneName;
         public string levelName;
+        public int optimalMoves;
 
         [HideInInspector] public string levelNumber;
     }
