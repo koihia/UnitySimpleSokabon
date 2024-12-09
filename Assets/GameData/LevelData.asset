@@ -71,27 +71,23 @@ MonoBehaviour:
     levelNumber: 
   - sceneName: Level9
     levelName: 
-    optimalMoves: 0
-    levelNumber: 4-3
+    optimalMoves: 55
+    levelNumber: 4-1
   - sceneName: Level7
     levelName: 
-    optimalMoves: 0
-    levelNumber: 4-1
+    optimalMoves: 7
+    levelNumber: 4-2
   - sceneName: Level8
     levelName: 
-    optimalMoves: 0
-    levelNumber: 4-2
-  - sceneName: Level10
-    levelName: 
-    optimalMoves: 0
-    levelNumber: 4-4
+    optimalMoves: 13
+    levelNumber: 4-3
   - sceneName: SEPARATOR
     levelName: 
     optimalMoves: 0
     levelNumber: 
   - sceneName: Level13
     levelName: 
-    optimalMoves: 0
+    optimalMoves: 32
     levelNumber: 5-1
   - sceneName: SEPARATOR
     levelName: 
@@ -99,9 +95,13 @@ MonoBehaviour:
     levelNumber: 
   - sceneName: Level11
     levelName: 
-    optimalMoves: 0
+    optimalMoves: 64
     levelNumber: 6-1
   - sceneName: Level6
     levelName: 
-    optimalMoves: 0
+    optimalMoves: 96
     levelNumber: 6-2
+  - sceneName: Level10
+    levelName: 
+    optimalMoves: 129
+    levelNumber: 6-3
